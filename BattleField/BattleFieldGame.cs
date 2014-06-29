@@ -6,7 +6,8 @@
     {
         public static void Main()
         {
-            IEngine engine = new BaseGameEngine();
+            IRenderer renderer = new BaseRenderer();
+            IEngine engine = new BaseGameEngine(renderer);
             engine.StartNewGame();
         }
     }
