@@ -1,6 +1,6 @@
 ﻿namespace BattleField
 {
-    public interface IGameField : IDrawable
+    public interface IGameField 
     {
         int Rows { get; set; }
         int Cols { get; set; }
