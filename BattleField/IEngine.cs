@@ -2,5 +2,7 @@
 {
     public interface IEngine
     {
+        void StartNewGame();
+
     }
 }

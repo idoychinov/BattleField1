@@ -11,23 +11,15 @@
   <Class Name="BattleField.BaseRenderer">
     <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>BaseRenderer.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="BattleField.GameField">
-    <Position X="6.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GameField.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="BattleField.BaseGameEngine">
     <Position X="8.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAABEAAAAAAAAAI=</HashCode>
       <FileName>BaseGameEngine.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -53,15 +45,25 @@
       <FileName>DestroyedField.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BattleField.BaseGameFIeld">
-    <Position X="6.25" Y="2" Width="1.5" />
+  <Class Name="BattleField.BaseGameField">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseGameField.cs</FileName>
+      <NewMemberFileName>BaseGameFIeld.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BattleField.KeyboardInterface">
+    <Position X="10.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>BaseGameFIeld.cs</FileName>
+      <FileName>KeyboardInterface.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="BattleField.IRenderer">
-    <Position X="12.75" Y="2.5" Width="1.5" />
+    <Position X="12.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IRenderer.cs</FileName>
@@ -77,8 +79,15 @@
   <Interface Name="BattleField.IEngine">
     <Position X="12.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IEngine.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BattleField.IUserInterface">
+    <Position X="12.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IUserInterface.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
