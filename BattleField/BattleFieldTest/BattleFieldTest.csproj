@@ -52,6 +52,13 @@
   <ItemGroup>
     <Compile Include="BaseGameEngineTest.cs" />
     <Compile Include="BaseGameFieldTest.cs" />
+    <Compile Include="DestroyedFieldTest.cs" />
+    <Compile Include="EmptyFieldTest.cs" />
+    <Compile Include="GameObjectTest.cs" />
+    <Compile Include="KeyboardInterfaceTest.cs" />
+    <Compile Include="MethodsTest.cs" />
+    <Compile Include="MineTest.cs" />
+    <Compile Include="PositionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseRendererTest.cs" />
     <Compile Include="BattleFieldGameTest.cs" />
