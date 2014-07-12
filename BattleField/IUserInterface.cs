@@ -3,6 +3,5 @@
     public interface IUserInterface
     {
         int ReadInteger();
-
     }
 }
