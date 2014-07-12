@@ -6,7 +6,7 @@
         public DestroyedField() 
             : base()
         {
-            this.graphicalRepresentation = symbol;
+            this.graphicalRepresentation = Symbol;
         }
     }
 }

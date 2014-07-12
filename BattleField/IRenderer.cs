@@ -8,6 +8,6 @@
 
         void DrawGameObjects();
 
-
+        void PrintMessage(string message);
     }
 }
