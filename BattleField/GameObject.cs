@@ -2,25 +2,22 @@
 {
     public abstract class GameObject : IDrawable
     {
-        private Position position;
 
         protected char graphicalRepresentation;
 
-        protected GameObject(Position position) 
+        protected GameObject() 
         {
-            this.position = position;
-            
             this.graphicalRepresentation = ' ';
         }
 
-        public Position GetCurrentPosition()
+        public string GetGraphicalRepresentation()
         {
-            return this.position;
+            return this.graphicalRepresentation.ToString();
         }
 
-        public char GetGraphicalRepresentation()
+        public virtual bool IsInteractable()
         {
-            return this.graphicalRepresentation;
+            return false;
         }
     }
 }

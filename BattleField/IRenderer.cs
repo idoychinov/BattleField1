@@ -2,7 +2,7 @@
 {
     public interface IRenderer
     {
-        void DrawGameField(string[,]field, int rows, int cols);
+        void DrawGameField(IGameField field);
 
         void DrawGameStats();
 

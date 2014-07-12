@@ -2,8 +2,7 @@
 {
     public interface IGameField 
     {
-        int Rows { get; set; }
-        int Cols { get; set; }
-        string[,] Field {get;set;}
+        GameObject GetObjectAtPosition(Position position);
+        int Size { get; }
     }
 }

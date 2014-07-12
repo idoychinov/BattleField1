@@ -2,8 +2,6 @@
 {
     public interface IDrawable
     {
-        Position GetCurrentPosition();
-
-        char GetGraphicalRepresentation();
+        string GetGraphicalRepresentation();
     }
 }

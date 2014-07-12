@@ -5,8 +5,8 @@
     public class Mine : GameObject
     {
         private int strength;
-        public Mine(Position position, int strength) 
-            : base(position)
+        public Mine(int strength) 
+            : base()
         {
             if (strength < 1 && strength > 5)
             {
@@ -15,6 +15,11 @@
 
             this.strength = strength;
             this.graphicalRepresentation = (char)(48 + strength);
+        }
+
+        public override bool IsInteractable()
+        {
+            return true;
         }
     }
 }

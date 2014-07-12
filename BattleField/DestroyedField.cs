@@ -3,8 +3,8 @@
     public class DestroyedField : GameObject
     {
         private const char symbol = 'X';
-        public DestroyedField(Position position) 
-            : base(position)
+        public DestroyedField() 
+            : base()
         {
             this.graphicalRepresentation = symbol;
         }

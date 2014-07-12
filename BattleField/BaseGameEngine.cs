@@ -29,7 +29,7 @@ namespace BattleField
                 fieldSize = Convert.ToInt32(Console.ReadLine());
             }
 
-            gameField = new BaseGameField(fieldSize, fieldSize + 2, (fieldSize * 2) + 2);
+            gameField = new BaseGameField(fieldSize);
             
             
 
@@ -38,22 +38,24 @@ namespace BattleField
 
         private void Run()
         {
-            renderer.DrawGameField(gameField.Field, gameField.Rows, gameField.Cols);
+            renderer.DrawGameField(gameField);
             int countPlayed = 0;
-            VremeEIgrachaDaDeistva(fieldSize, gameField.Rows, gameField.Cols, gameField.Field, countPlayed);
+            VremeEIgrachaDaDeistva(countPlayed);
         }
 
         
 
-        private void VremeEIgrachaDaDeistva(int n, int rows, int cols, string[,] workField, int countPlayed)
+        private void VremeEIgrachaDaDeistva(int countPlayed)
         {
+
+            while(true){
             countPlayed++;
             Console.WriteLine("Please enter coordinates: ");
             string xy = Console.ReadLine();
             int x = int.Parse(xy.Substring(0, 1));
             int y = int.Parse(xy.Substring(2, 1));
 
-            while ((x < 0 || x > (n - 1)) && (y < 0 || y > (n - 1)))
+            while ((x < 0 || x >= this.gameField.Size) && (y < 0 || y >= this.gameField.Size))
             {
                 Console.WriteLine("Invalid move !");
                 Console.WriteLine("Please enter coordinates: ");
@@ -62,62 +64,58 @@ namespace BattleField
                 y = int.Parse(xy.Substring(2, 1));
             }
 
-            x += 2;
-            y = (2 * y) + 2;
+            //x += 2;
+            //y = (2 * y) + 2;
+            var position = new Position();
 
-            while (workField[x, y] == "-" || workField[x, y] == "X")
+            position.X=x;
+            position.Y=y;
+
+            if(gameField.GetObjectAtPosition(position).IsInteractable())
             {
-                Console.WriteLine("Invalid move! ");
+                
+            }
+            else 
+            {
+                Console.WriteLine("Invalid move !");
                 Console.WriteLine("Please enter coordinates: ");
-                xy = Console.ReadLine();
-                x = int.Parse(xy.Substring(0, 1));
-                y = int.Parse(xy.Substring(2, 1));
-
-                while ((x < 0 || x > (n - 1)) && (y < 0 || y > (n - 1)))
-                {
-                    Console.WriteLine("Invalid move !");
-                    Console.WriteLine("Please enter coordinates: ");
-                    xy = Console.ReadLine();
-                    x = int.Parse(xy.Substring(0, 1));
-                    y = int.Parse(xy.Substring(2, 1));
-                }
-
-                x += 2;
-                y = (2 * y) + 2;
             }
-
-            int hitCoordinate = Convert.ToInt32(workField[x, y]);
-            switch (hitCoordinate)
-            {
-                case 1: 
-                    HitOne(x, y, rows, cols, workField); 
-                    break;
-                case 2:
-                    PrasniDvama(x, y, rows, cols, workField);
-                    break;
-                case 3:
-                    HitThree(x, y, rows, cols, workField);
-                    break;
-                case 4:
-                    HitFour(x, y, rows, cols, workField);
-                    break;
-                case 5:
-                    HitFive(x, y, rows, cols, workField);
-                    break;
+                //if (!Krai(rows, cols, workField))
+                //{
+                //    break;
+                //}
+                renderer.DrawGameField(gameField);
             }
+                       
+                
+            Console.WriteLine("Game over. Detonated mines: " + countPlayed);
+            
+            
 
-            renderer.DrawGameField(gameField.Field, gameField.Rows, gameField.Cols);
+            //int hitCoordinate = Convert.ToInt32(workField[x, y]);
+            //switch (hitCoordinate)
+            //{
+            //    case 1: 
+            //        HitOne(x, y, rows, cols, workField); 
+            //        break;
+            //    case 2:
+            //        PrasniDvama(x, y, rows, cols, workField);
+            //        break;
+            //    case 3:
+            //        HitThree(x, y, rows, cols, workField);
+            //        break;
+            //    case 4:
+            //        HitFour(x, y, rows, cols, workField);
+            //        break;
+            //    case 5:
+            //        HitFive(x, y, rows, cols, workField);
+            //        break;
+            //}
 
-            if (!Krai(rows, cols, workField))
-            {
-                VremeEIgrachaDaDeistva(n, rows, cols, workField, countPlayed);
-            }
-            else
-            {
-                Console.WriteLine("Game over. Detonated mines: " + countPlayed);
-            }
+
+            
         }
-
+/*
         private  void HitOne(int x, int y, int rows, int cols, string[,] workField)
         {
             workField[x, y] = "X";
@@ -323,7 +321,7 @@ namespace BattleField
                 }
             }
         }
-
+*/
         public static bool Krai(int rows, int cols, string[,] полето)
         {
             bool край = true;

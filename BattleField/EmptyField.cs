@@ -2,9 +2,10 @@
 {
     public class EmptyField : GameObject
     {
-        public EmptyField(Position position) 
-            : base(position)
+        public EmptyField() 
+            : base()
         {
+            this.graphicalRepresentation = '-';
         }
     }
 }

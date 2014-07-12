@@ -49,10 +49,12 @@
     <Compile Include="BattleFieldGame.cs" />
     <Compile Include="DestroyedField.cs" />
     <Compile Include="EmptyField.cs" />
+    <Compile Include="GameStatus.cs" />
     <Compile Include="IGameField.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IEngine.cs" />
+    <Compile Include="IGameStatus.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="IUserInterface.cs" />
     <Compile Include="KeyboardInterface.cs" />
