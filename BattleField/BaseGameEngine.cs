@@ -35,9 +35,9 @@ namespace BattleField
 
         private void Run()
         {
-            renderer.DrawGameField(gameField.field, gameField.Rows, gameField.Cols);
+            renderer.DrawGameField(gameField.Field, gameField.Rows, gameField.Cols);
             int countPlayed = 0;
-            VremeEIgrachaDaDeistva(n, gameField.Rows, gameField.Cols, gameField.field, countPlayed);
+            VremeEIgrachaDaDeistva(n, gameField.Rows, gameField.Cols, gameField.Field, countPlayed);
         }
 
         
@@ -103,7 +103,7 @@ namespace BattleField
                     break;
             }
 
-            renderer.DrawGameField(gameField.field, gameField.Rows, gameField.Cols);
+            renderer.DrawGameField(gameField.Field, gameField.Rows, gameField.Cols);
 
             if (!Krai(rows, cols, workField))
             {

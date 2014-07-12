@@ -4,27 +4,18 @@
 
     public class BaseGameField : IGameField
     {
-        // to remove later
-        public int Rows { get; set; }
-
-        //to remove later
-        public int Cols { get; set; }
-
-        //to make private
-        public string[,] field{get;set;}
-
         public BaseGameField(int n, int rows, int cols)
         {
-            this.Rows = rows ;
+            this.Rows = rows;
             this.Cols = cols;
 
-            field = new string[rows, cols];
+            this.Field = new string[rows, cols];
 
             // the display logic should be moved to renderer but currently its also used as initialization
-            field[0, 0] = " ";
-            field[0, 1] = " ";
-            field[1, 0] = " ";
-            field[1, 1] = " ";
+            this.Field[0, 0] = " ";
+            this.Field[0, 1] = " ";
+            this.Field[1, 0] = " ";
+            this.Field[1, 1] = " ";
 
             for (int row = 2; row < rows; row++)
             {
@@ -34,32 +25,32 @@
                     {
                         if (col == 2)
                         {
-                            field[0, col] = "0";
+                            this.Field[0, col] = "0";
                         }
                         else
                         {
-                            field[0, col] = Convert.ToString((col - 2) / 2);
+                            this.Field[0, col] = Convert.ToString((col - 2) / 2);
                         }
                     }
                     else
                     {
-                        field[0, col] = " ";
+                        this.Field[0, col] = " ";
                     }
 
                     if (col < cols - 1)
                     {
-                        field[1, col] = "-";
+                        this.Field[1, col] = "-";
                     }
 
-                    field[row, 0] = Convert.ToString(row - 2);
-                    field[row, 1] = "|";
+                    this.Field[row, 0] = Convert.ToString(row - 2);
+                    this.Field[row, 1] = "|";
                     if (col % 2 == 0)
                     {
-                        field[row, col] = "-";
+                        this.Field[row, col] = "-";
                     }
                     else
                     {
-                        field[row, col] = " ";
+                        this.Field[row, col] = " ";
                     }
                 }
             }
@@ -80,7 +71,7 @@
                 randomPlaceI += 2;
                 randomPlaceJ = (2 * randomPlaceJ) + 2;
 
-                while (field[randomPlaceI, randomPlaceJ] != " " && field[randomPlaceI, randomPlaceJ] != "-")
+                while (this.Field[randomPlaceI, randomPlaceJ] != " " && this.Field[randomPlaceI, randomPlaceJ] != "-")
                 {
                     randomPlaceI = randomNumber.Next(0, n);
                     randomPlaceJ = randomNumber.Next(0, n);
@@ -89,12 +80,19 @@
                 }
 
                 string randomDigit = Convert.ToString(randomNumber.Next(1, 6));
-                field[randomPlaceI, randomPlaceJ] = randomDigit;
-                field[randomPlaceI, randomPlaceJ + 1] = " ";
+                this.Field[randomPlaceI, randomPlaceJ] = randomDigit;
+                this.Field[randomPlaceI, randomPlaceJ + 1] = " ";
                 count++;
             }
-
-            
         }
+
+        // to remove later
+        public int Rows { get; set; }
+
+        // to remove later
+        public int Cols { get; set; }
+
+        // to make private
+        public string[,] Field { get; set; }
     }
 }
