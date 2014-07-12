@@ -2,7 +2,7 @@
 {
     public class DestroyedField : GameObject
     {
-        private const char symbol = 'X';
+        private const char Symbol = 'X';
         public DestroyedField() 
             : base()
         {

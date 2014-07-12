@@ -345,22 +345,6 @@
             }
         }
 */
-        public static bool Krai(int rows, int cols, string[,] полето)
-        {
-            bool край = true;
-            for (int i = 2; i < rows; i++)
-            {
-                for (int j = 2; j < cols; j++)
-                {
-                    if (полето[i, j] == "1" || полето[i, j] == "2" || полето[i, j] == "3" || полето[i, j] == "4" || полето[i, j] == "5")
-                    {
-                        край = false;
-                        break;
-                    }
-                }
-            }
-
-            return край;
-        }
+        
     }
 }
