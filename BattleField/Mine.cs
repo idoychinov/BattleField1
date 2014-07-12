@@ -5,6 +5,7 @@
     public class Mine : GameObject
     {
         private int strength;
+
         public Mine(Position position, int strength) 
             : base(position)
         {

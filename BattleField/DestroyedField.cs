@@ -2,11 +2,12 @@
 {
     public class DestroyedField : GameObject
     {
-        private const char symbol = 'X';
-        public DestroyedField(Position position) 
+        private const char Symbol = 'X';
+
+        public DestroyedField(Position position)
             : base(position)
         {
-            this.graphicalRepresentation = symbol;
+            this.graphicalRepresentation = Symbol;
         }
     }
 }
