@@ -7,7 +7,8 @@
         public static void Main()
         {
             IRenderer renderer = new BaseRenderer();
-            IEngine engine = new BaseGameEngine(renderer);
+            IUserInterface userInterface = new BaseUserInterface();
+            IEngine engine = new BaseGameEngine(renderer, userInterface);
             engine.StartNewGame();
         }
     }

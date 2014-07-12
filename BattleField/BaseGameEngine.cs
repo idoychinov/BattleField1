@@ -14,14 +14,14 @@ namespace BattleField
         //to remove 
         private int fieldSize;
 
-        public BaseGameEngine(IRenderer renderer)
+        public BaseGameEngine(IRenderer renderer, IUserInterface userInterface)
         {
             this.renderer = renderer;
         }
 
         public void StartNewGame()
         {
-            Console.Write("Welcome to \"Battle Field game.\" Enter battle field size: n = ");
+            renderer.PrintMessage("Welcome to \"Battle Field game.\" Enter battle field size: n = ");
             fieldSize = Convert.ToInt32(Console.ReadLine());
             while (fieldSize < MinFieldSize || fieldSize > MaxFieldSize)
             {

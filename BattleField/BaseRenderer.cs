@@ -13,7 +13,7 @@
 
         public void DrawGameStats()
         {
-
+           
         }
 
         public void DrawGameObjects()
@@ -32,6 +32,12 @@
 
                 Console.WriteLine();
             }
+        }
+
+
+        public void PrintMessage(string message)
+        {
+            Console.Write(message);
         }
     }
 }

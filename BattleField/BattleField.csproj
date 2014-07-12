@@ -46,6 +46,7 @@
     <Compile Include="BaseGameEngine.cs" />
     <Compile Include="BaseGameField.cs" />
     <Compile Include="BaseRenderer.cs" />
+    <Compile Include="BaseUserInterface.cs" />
     <Compile Include="BattleFieldGame.cs" />
     <Compile Include="DestroyedField.cs" />
     <Compile Include="EmptyField.cs" />
