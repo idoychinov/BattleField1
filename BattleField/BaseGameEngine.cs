@@ -4,12 +4,15 @@ namespace BattleField
 {
     public class BaseGameEngine : IEngine
     {
+        private const int MinFieldSize = 1;
+        private const int MaxFieldSize = 10;
+
         private IGameField gameField;
 
         private IRenderer renderer;
 
         //to remove 
-        private int n;
+        private int fieldSize;
 
         public BaseGameEngine(IRenderer renderer)
         {
@@ -19,14 +22,14 @@ namespace BattleField
         public void StartNewGame()
         {
             Console.Write("Welcome to \"Battle Field game.\" Enter battle field size: n = ");
-            n = Convert.ToInt32(Console.ReadLine());
-            while (n < 1 || n > 10)
+            fieldSize = Convert.ToInt32(Console.ReadLine());
+            while (fieldSize < MinFieldSize || fieldSize > MaxFieldSize)
             {
                 Console.WriteLine("Enter a number between 1 and 10!");
-                n = Convert.ToInt32(Console.ReadLine());
+                fieldSize = Convert.ToInt32(Console.ReadLine());
             }
 
-            gameField = new BaseGameField(n, n + 2, (n * 2) + 2);
+            gameField = new BaseGameField(fieldSize, fieldSize + 2, (fieldSize * 2) + 2);
             
             
 
@@ -37,7 +40,7 @@ namespace BattleField
         {
             renderer.DrawGameField(gameField.Field, gameField.Rows, gameField.Cols);
             int countPlayed = 0;
-            VremeEIgrachaDaDeistva(n, gameField.Rows, gameField.Cols, gameField.Field, countPlayed);
+            VremeEIgrachaDaDeistva(fieldSize, gameField.Rows, gameField.Cols, gameField.Field, countPlayed);
         }
 
         
