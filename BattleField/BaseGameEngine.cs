@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace BattleField
+﻿namespace BattleField
 {
+    using System;
+
     public class BaseGameEngine : IEngine
     {
         private const int MinFieldSize = 1;
@@ -11,7 +11,7 @@ namespace BattleField
 
         private IRenderer renderer;
 
-        //to remove 
+        // to remove 
         private int fieldSize;
 
         public BaseGameEngine(IRenderer renderer, IUserInterface userInterface)
@@ -19,31 +19,47 @@ namespace BattleField
             this.renderer = renderer;
         }
 
-        public void StartNewGame()
+        public static bool Krai(int rows, int cols, string[,] полето)
         {
-            renderer.PrintMessage("Welcome to \"Battle Field game.\" Enter battle field size: n = ");
-            fieldSize = Convert.ToInt32(Console.ReadLine());
-            while (fieldSize < MinFieldSize || fieldSize > MaxFieldSize)
+            bool край = true;
+
+            for (int i = 2; i < rows; i++)
             {
-                Console.WriteLine("Enter a number between 1 and 10!");
-                fieldSize = Convert.ToInt32(Console.ReadLine());
+                for (int j = 2; j < cols; j++)
+                {
+                    if (полето[i, j] == "1" || полето[i, j] == "2" || полето[i, j] == "3" || полето[i, j] == "4" || полето[i, j] == "5")
+                    {
+                        край = false;
+                        break;
+                    }
+                }
             }
 
-            gameField = new BaseGameField(fieldSize, fieldSize + 2, (fieldSize * 2) + 2);
-            
-            
+            return край;
+        }
+
+        public void StartNewGame()
+        {
+            this.renderer.PrintMessage("Welcome to \"Battle Field game.\" Enter battle field size: n = ");
+            this.fieldSize = Convert.ToInt32(Console.ReadLine());
+
+            while (this.fieldSize < MinFieldSize || this.fieldSize > MaxFieldSize)
+            {
+                Console.WriteLine("Enter a number between 1 and 10!");
+                this.fieldSize = Convert.ToInt32(Console.ReadLine());
+            }
+
+            this.gameField = new BaseGameField(this.fieldSize, this.fieldSize + 2, (this.fieldSize * 2) + 2);
 
             this.Run();
         }
 
         private void Run()
         {
-            renderer.DrawGameField(gameField.Field, gameField.Rows, gameField.Cols);
+            this.renderer.DrawGameField(this.gameField.Field, this.gameField.Rows, this.gameField.Cols);
             int countPlayed = 0;
-            VremeEIgrachaDaDeistva(fieldSize, gameField.Rows, gameField.Cols, gameField.Field, countPlayed);
+            this.VremeEIgrachaDaDeistva(this.fieldSize, this.gameField.Rows, this.gameField.Cols, this.gameField.Field, countPlayed);
         }
-
-        
 
         private void VremeEIgrachaDaDeistva(int n, int rows, int cols, string[,] workField, int countPlayed)
         {
@@ -87,30 +103,31 @@ namespace BattleField
             }
 
             int hitCoordinate = Convert.ToInt32(workField[x, y]);
+
             switch (hitCoordinate)
             {
-                case 1: 
-                    HitOne(x, y, rows, cols, workField); 
+                case 1:
+                    this.HitOne(x, y, rows, cols, workField);
                     break;
                 case 2:
-                    PrasniDvama(x, y, rows, cols, workField);
+                    this.PrasniDvama(x, y, rows, cols, workField);
                     break;
                 case 3:
-                    HitThree(x, y, rows, cols, workField);
+                    this.HitThree(x, y, rows, cols, workField);
                     break;
                 case 4:
-                    HitFour(x, y, rows, cols, workField);
+                    this.HitFour(x, y, rows, cols, workField);
                     break;
                 case 5:
-                    HitFive(x, y, rows, cols, workField);
+                    this.HitFive(x, y, rows, cols, workField);
                     break;
             }
 
-            renderer.DrawGameField(gameField.Field, gameField.Rows, gameField.Cols);
+            this.renderer.DrawGameField(this.gameField.Field, this.gameField.Rows, this.gameField.Cols);
 
             if (!Krai(rows, cols, workField))
             {
-                VremeEIgrachaDaDeistva(n, rows, cols, workField, countPlayed);
+                this.VremeEIgrachaDaDeistva(n, rows, cols, workField, countPlayed);
             }
             else
             {
@@ -118,9 +135,10 @@ namespace BattleField
             }
         }
 
-        private  void HitOne(int x, int y, int rows, int cols, string[,] workField)
+        private void HitOne(int x, int y, int rows, int cols, string[,] workField)
         {
             workField[x, y] = "X";
+
             if (x - 1 > 1 && y - 2 > 1)
             {
                 workField[x - 1, y - 2] = "X";
@@ -142,10 +160,11 @@ namespace BattleField
             }
         }
 
-        private  void PrasniDvama(int x, int y, int rows, int cols, string[,] workField)
+        private void PrasniDvama(int x, int y, int rows, int cols, string[,] workField)
         {
             workField[x, y] = "X";
-            HitOne(x, y, rows, cols, workField);
+            this.HitOne(x, y, rows, cols, workField);
+
             if (y - 2 > 1)
             {
                 workField[x, y - 2] = "X";
@@ -167,9 +186,10 @@ namespace BattleField
             }
         }
 
-        private  void HitThree(int x, int y, int rows, int cols, string[,] workField)
+        private void HitThree(int x, int y, int rows, int cols, string[,] workField)
         {
-            PrasniDvama(x, y, rows, cols, workField);
+            this.PrasniDvama(x, y, rows, cols, workField);
+
             if (x - 2 > 1)
             {
                 workField[x - 2, y] = "X";
@@ -202,9 +222,10 @@ namespace BattleField
             }
         }
 
-        private  void HitFour(int x, int y, int rows, int cols, string[,] workField)
+        private void HitFour(int x, int y, int rows, int cols, string[,] workField)
         {
-            HitThree(x, y, rows, cols, workField);
+            this.HitThree(x, y, rows, cols, workField);
+
             if (x - 2 > 1 && y - 2 > 1)
             {
                 workField[x - 2, y - 2] = "X";
@@ -275,7 +296,8 @@ namespace BattleField
 
         private void HitFive(int x, int y, int rows, int cols, string[,] poleZaRabota)
         {
-            HitFour(x, y, rows, cols, poleZaRabota);
+            this.HitFour(x, y, rows, cols, poleZaRabota);
+
             if (x - 2 > 1 && y - 4 > 1)
             {
                 poleZaRabota[x - 2, y - 4] = "X";
@@ -322,24 +344,6 @@ namespace BattleField
                     poleZaRabota[x - 2, y + 4] = "X";
                 }
             }
-        }
-
-        public static bool Krai(int rows, int cols, string[,] полето)
-        {
-            bool край = true;
-            for (int i = 2; i < rows; i++)
-            {
-                for (int j = 2; j < cols; j++)
-                {
-                    if (полето[i, j] == "1" || полето[i, j] == "2" || полето[i, j] == "3" || полето[i, j] == "4" || полето[i, j] == "5")
-                    {
-                        край = false;
-                        break;
-                    }
-                }
-            }
-
-            return край;
         }
     }
 }
