@@ -1,12 +1,13 @@
 ﻿namespace BattleField
 {
+    using BattleField.Interfaces;
+
     public class DestroyedField : GameObject
     {
         private const char Symbol = 'X';
-        public DestroyedField() 
-            : base()
+        public DestroyedField(IPosition position) 
+            : base(position,Symbol)
         {
-            this.graphicalRepresentation = Symbol;
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿namespace BattleField
+﻿namespace BattleField.Interfaces
 {
     using System;
     using System.Collections.Generic;
 
-    interface IGameStatus
+    public interface IGameStatus
     {
     }
 }

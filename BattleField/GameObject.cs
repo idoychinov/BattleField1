@@ -1,13 +1,35 @@
 ﻿namespace BattleField
 {
-    public abstract class GameObject : IDrawable
+    using BattleField.Interfaces;
+
+    public abstract class GameObject : IGameObject
     {
 
         protected char graphicalRepresentation;
+        private IPosition position;
 
-        protected GameObject() 
+        protected GameObject(IPosition position) :
+            this(position,' ')
         {
-            this.graphicalRepresentation = ' ';
+        }
+
+        protected GameObject(IPosition position, char graphicalRepresentation) 
+        {
+            this.Position = position;
+            this.graphicalRepresentation = graphicalRepresentation;
+        }
+
+        public IPosition Position 
+        {
+            get
+            {
+                return this.position;
+            }
+
+            private set
+            {
+                this.position = value;
+            }
         }
 
         public string GetGraphicalRepresentation()
@@ -15,9 +37,5 @@
             return this.graphicalRepresentation.ToString();
         }
 
-        public virtual bool IsInteractable()
-        {
-            return false;
-        }
     }
 }

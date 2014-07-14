@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using BattleField.Interfaces;
+
     public class BaseRenderer : IRenderer
     {
         //public BaseRenderer(I)
@@ -25,8 +27,16 @@
                 for (int j = 0; j < field.Size; j++)
                 {
                     position.Y=j;
-                    var objectRepresentation = field.GetObjectAtPosition(position).GetGraphicalRepresentation();
-                    Console.Write(objectRepresentation + " ");
+                    var objectToDraw=field.GetObjectAtPosition(position);
+                    if (objectToDraw == null)
+                    {
+                        Console.Write("- ");
+                    }
+                    else
+                    {
+                        Console.Write(objectToDraw.GetGraphicalRepresentation() + " ");
+                    }
+                    
                 }
                 Console.WriteLine();
             }

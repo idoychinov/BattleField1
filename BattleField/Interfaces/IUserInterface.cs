@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-namespace BattleField
+﻿namespace BattleField.Interfaces
 {
+    using System.Collections.Generic;
+
     public interface IUserInterface
     {
         int ReadInteger();

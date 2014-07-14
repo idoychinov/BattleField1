@@ -1,6 +1,7 @@
 ﻿namespace BattleField
 {
     using System;
+    using BattleField.Interfaces;
 
     public class BaseGameEngine : IEngine
     {
@@ -50,8 +51,8 @@
             }
 
             gameField = new BaseGameField(fieldSize);
-            
-            
+
+
 
             this.Run();
         }
@@ -66,49 +67,50 @@
         private void VremeEIgrachaDaDeistva(int countPlayed)
         {
 
-            while(true){
-            countPlayed++;
-            Console.WriteLine("Please enter coordinates: ");
-            string xy = Console.ReadLine();
-            int x = int.Parse(xy.Substring(0, 1));
-            int y = int.Parse(xy.Substring(2, 1));
-
-            while ((x < 0 || x >= this.gameField.Size) && (y < 0 || y >= this.gameField.Size))
+            while (true)
             {
-                Console.WriteLine("Invalid move !");
+                countPlayed++;
                 Console.WriteLine("Please enter coordinates: ");
-                xy = Console.ReadLine();
-                x = int.Parse(xy.Substring(0, 1));
-                y = int.Parse(xy.Substring(2, 1));
-            }
+                string xy = Console.ReadLine();
+                int x = int.Parse(xy.Substring(0, 1));
+                int y = int.Parse(xy.Substring(2, 1));
 
-            //x += 2;
-            //y = (2 * y) + 2;
-            var position = new Position();
+                while ((x < 0 || x >= this.gameField.Size) && (y < 0 || y >= this.gameField.Size))
+                {
+                    Console.WriteLine("Invalid move !");
+                    Console.WriteLine("Please enter coordinates: ");
+                    xy = Console.ReadLine();
+                    x = int.Parse(xy.Substring(0, 1));
+                    y = int.Parse(xy.Substring(2, 1));
+                }
 
-            position.X=x;
-            position.Y=y;
+                //x += 2;
+                //y = (2 * y) + 2;
+                var position = new Position();
 
-            if(gameField.GetObjectAtPosition(position).IsInteractable())
-            {
-                
-            }
-            else 
-            {
-                Console.WriteLine("Invalid move !");
-                Console.WriteLine("Please enter coordinates: ");
-            }
+                position.X = x;
+                position.Y = y;
+
+                if (gameField.GetInteractableObjectAtPosition(position) == null)
+                {
+                    Console.WriteLine("Invalid move !");
+                    Console.WriteLine("Please enter coordinates: ");
+                }
+                else
+                {
+                    
+                }
                 //if (!Krai(rows, cols, workField))
                 //{
                 //    break;
                 //}
                 renderer.DrawGameField(gameField);
             }
-                       
-                
+
+
             Console.WriteLine("Game over. Detonated mines: " + countPlayed);
-            
-            
+
+
 
             //int hitCoordinate = Convert.ToInt32(workField[x, y]);
             //switch (hitCoordinate)
@@ -131,220 +133,220 @@
             //}
 
 
-            
+
         }
-/*
-        private void HitOne(int x, int y, int rows, int cols, string[,] workField)
-        {
-            workField[x, y] = "X";
-
-            if (x - 1 > 1 && y - 2 > 1)
-            {
-                workField[x - 1, y - 2] = "X";
-            }
-
-            if (x - 1 > 1 && y < cols - 2)
-            {
-                workField[x - 1, y + 2] = "X";
-            }
-
-            if (x < rows - 1 && y < cols - 2)
-            {
-                workField[x + 1, y + 2] = "X";
-            }
-
-            if (x < rows - 1 && y - 2 > 1)
-            {
-                workField[x + 1, y - 2] = "X";
-            }
-        }
-
-        private void PrasniDvama(int x, int y, int rows, int cols, string[,] workField)
-        {
-            workField[x, y] = "X";
-            this.HitOne(x, y, rows, cols, workField);
-
-            if (y - 2 > 1)
-            {
-                workField[x, y - 2] = "X";
-            }
-
-            if (y < cols - 2)
-            {
-                workField[x, y + 2] = "X";
-            }
-
-            if (x - 1 > 1)
-            {
-                workField[x - 1, y] = "X";
-            }
-
-            if (x < rows - 1)
-            {
-                workField[x + 1, y] = "X";
-            }
-        }
-
-        private void HitThree(int x, int y, int rows, int cols, string[,] workField)
-        {
-            this.PrasniDvama(x, y, rows, cols, workField);
-
-            if (x - 2 > 1)
-            {
-                workField[x - 2, y] = "X";
-            }
-
-            if (x < rows - 2)
-            {
-                workField[x + 2, y] = "X";
-            }
-
-            if (y - 4 > 1)
-            {
-                workField[x, y - 4] = "X";
-            }
-
-            if (y == 18)
-            {
-                workField[x, y + 2] = "X";
-            }
-            else if (y == 20)
-            {
-                workField[x, y] = "X";
-            }
-            else
-            {
-                if (y < cols - 3)
+        /*
+                private void HitOne(int x, int y, int rows, int cols, string[,] workField)
                 {
-                    workField[x, y + 4] = "X";
-                }
-            }
-        }
+                    workField[x, y] = "X";
 
-        private void HitFour(int x, int y, int rows, int cols, string[,] workField)
-        {
-            this.HitThree(x, y, rows, cols, workField);
+                    if (x - 1 > 1 && y - 2 > 1)
+                    {
+                        workField[x - 1, y - 2] = "X";
+                    }
 
-            if (x - 2 > 1 && y - 2 > 1)
-            {
-                workField[x - 2, y - 2] = "X";
-            }
+                    if (x - 1 > 1 && y < cols - 2)
+                    {
+                        workField[x - 1, y + 2] = "X";
+                    }
 
-            if (x - 1 > 1 && y - 4 > 1)
-            {
-                workField[x - 1, y - 4] = "X";
-            }
+                    if (x < rows - 1 && y < cols - 2)
+                    {
+                        workField[x + 1, y + 2] = "X";
+                    }
 
-            if (x - 2 > 1 && y < cols - 2)
-            {
-                workField[x - 2, y + 2] = "X";
-            }
-
-            if (x < rows - 1 && y - 4 > 1)
-            {
-                workField[x + 1, y - 4] = "X";
-            }
-
-            if (x < rows - 2 && y - 2 > 1)
-            {
-                workField[x + 2, y - 2] = "X";
-            }
-
-            if (x < rows - 2 && y < cols - 2)
-            {
-                workField[x + 2, y + 2] = "X";
-            }
-
-            if (y == 18)
-            {
-                if (x - 1 > 1)
-                {
-                    workField[x - 1, y + 2] = "X";
+                    if (x < rows - 1 && y - 2 > 1)
+                    {
+                        workField[x + 1, y - 2] = "X";
+                    }
                 }
 
-                if (x < rows - 1)
+                private void PrasniDvama(int x, int y, int rows, int cols, string[,] workField)
                 {
-                    workField[x + 1, y + 2] = "X";
-                }
-            }
-            else if (y == 20)
-            {
-                if (x - 1 > 1)
-                {
-                    workField[x - 1, y] = "X";
+                    workField[x, y] = "X";
+                    this.HitOne(x, y, rows, cols, workField);
+
+                    if (y - 2 > 1)
+                    {
+                        workField[x, y - 2] = "X";
+                    }
+
+                    if (y < cols - 2)
+                    {
+                        workField[x, y + 2] = "X";
+                    }
+
+                    if (x - 1 > 1)
+                    {
+                        workField[x - 1, y] = "X";
+                    }
+
+                    if (x < rows - 1)
+                    {
+                        workField[x + 1, y] = "X";
+                    }
                 }
 
-                if (x < rows - 1)
+                private void HitThree(int x, int y, int rows, int cols, string[,] workField)
                 {
-                    workField[x + 1, y] = "X";
-                }
-            }
-            else
-            {
-                if (x - 1 > 1 && y < cols - 3)
-                {
-                    workField[x - 1, y + 4] = "X";
+                    this.PrasniDvama(x, y, rows, cols, workField);
+
+                    if (x - 2 > 1)
+                    {
+                        workField[x - 2, y] = "X";
+                    }
+
+                    if (x < rows - 2)
+                    {
+                        workField[x + 2, y] = "X";
+                    }
+
+                    if (y - 4 > 1)
+                    {
+                        workField[x, y - 4] = "X";
+                    }
+
+                    if (y == 18)
+                    {
+                        workField[x, y + 2] = "X";
+                    }
+                    else if (y == 20)
+                    {
+                        workField[x, y] = "X";
+                    }
+                    else
+                    {
+                        if (y < cols - 3)
+                        {
+                            workField[x, y + 4] = "X";
+                        }
+                    }
                 }
 
-                if (x < rows - 1 && y < cols - 3)
+                private void HitFour(int x, int y, int rows, int cols, string[,] workField)
                 {
-                    workField[x + 1, y + 4] = "X";
+                    this.HitThree(x, y, rows, cols, workField);
+
+                    if (x - 2 > 1 && y - 2 > 1)
+                    {
+                        workField[x - 2, y - 2] = "X";
+                    }
+
+                    if (x - 1 > 1 && y - 4 > 1)
+                    {
+                        workField[x - 1, y - 4] = "X";
+                    }
+
+                    if (x - 2 > 1 && y < cols - 2)
+                    {
+                        workField[x - 2, y + 2] = "X";
+                    }
+
+                    if (x < rows - 1 && y - 4 > 1)
+                    {
+                        workField[x + 1, y - 4] = "X";
+                    }
+
+                    if (x < rows - 2 && y - 2 > 1)
+                    {
+                        workField[x + 2, y - 2] = "X";
+                    }
+
+                    if (x < rows - 2 && y < cols - 2)
+                    {
+                        workField[x + 2, y + 2] = "X";
+                    }
+
+                    if (y == 18)
+                    {
+                        if (x - 1 > 1)
+                        {
+                            workField[x - 1, y + 2] = "X";
+                        }
+
+                        if (x < rows - 1)
+                        {
+                            workField[x + 1, y + 2] = "X";
+                        }
+                    }
+                    else if (y == 20)
+                    {
+                        if (x - 1 > 1)
+                        {
+                            workField[x - 1, y] = "X";
+                        }
+
+                        if (x < rows - 1)
+                        {
+                            workField[x + 1, y] = "X";
+                        }
+                    }
+                    else
+                    {
+                        if (x - 1 > 1 && y < cols - 3)
+                        {
+                            workField[x - 1, y + 4] = "X";
+                        }
+
+                        if (x < rows - 1 && y < cols - 3)
+                        {
+                            workField[x + 1, y + 4] = "X";
+                        }
+                    }
                 }
-            }
-        }
 
-        private void HitFive(int x, int y, int rows, int cols, string[,] poleZaRabota)
-        {
-            this.HitFour(x, y, rows, cols, poleZaRabota);
-
-            if (x - 2 > 1 && y - 4 > 1)
-            {
-                poleZaRabota[x - 2, y - 4] = "X";
-            }
-
-            if (x < rows - 2 && y - 4 > 1)
-            {
-                poleZaRabota[x + 2, y - 4] = "X";
-            }
-
-            if (y == 18)
-            {
-                if (x < rows - 2)
+                private void HitFive(int x, int y, int rows, int cols, string[,] poleZaRabota)
                 {
-                    poleZaRabota[x + 2, y + 2] = "X";
-                }
+                    this.HitFour(x, y, rows, cols, poleZaRabota);
 
-                if (x - 2 > 1)
-                {
-                    poleZaRabota[x - 2, y + 2] = "X";
-                }
-            }
-            else if (y == 20)
-            {
-                if (x < rows - 2)
-                {
-                    poleZaRabota[x + 2, y] = "X";
-                }
+                    if (x - 2 > 1 && y - 4 > 1)
+                    {
+                        poleZaRabota[x - 2, y - 4] = "X";
+                    }
 
-                if (x - 2 > 1)
-                {
-                    poleZaRabota[x - 2, y] = "X";
-                }
-            }
-            else
-            {
-                if (x < rows - 2 && y < cols - 3)
-                {
-                    poleZaRabota[x + 2, y + 4] = "X";
-                }
+                    if (x < rows - 2 && y - 4 > 1)
+                    {
+                        poleZaRabota[x + 2, y - 4] = "X";
+                    }
 
-                if (x - 2 > 1 && y < cols - 3)
-                {
-                    poleZaRabota[x - 2, y + 4] = "X";
+                    if (y == 18)
+                    {
+                        if (x < rows - 2)
+                        {
+                            poleZaRabota[x + 2, y + 2] = "X";
+                        }
+
+                        if (x - 2 > 1)
+                        {
+                            poleZaRabota[x - 2, y + 2] = "X";
+                        }
+                    }
+                    else if (y == 20)
+                    {
+                        if (x < rows - 2)
+                        {
+                            poleZaRabota[x + 2, y] = "X";
+                        }
+
+                        if (x - 2 > 1)
+                        {
+                            poleZaRabota[x - 2, y] = "X";
+                        }
+                    }
+                    else
+                    {
+                        if (x < rows - 2 && y < cols - 3)
+                        {
+                            poleZaRabota[x + 2, y + 4] = "X";
+                        }
+
+                        if (x - 2 > 1 && y < cols - 3)
+                        {
+                            poleZaRabota[x - 2, y + 4] = "X";
+                        }
+                    }
                 }
-            }
-        }
-*/
-        
+        */
+
     }
 }

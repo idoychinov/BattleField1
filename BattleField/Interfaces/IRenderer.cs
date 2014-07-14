@@ -1,4 +1,4 @@
-﻿namespace BattleField
+﻿namespace BattleField.Interfaces
 {
     public interface IRenderer
     {

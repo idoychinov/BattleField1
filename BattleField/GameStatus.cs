@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using BattleField.Interfaces;
 
     class GameStatus : IGameStatus
     {

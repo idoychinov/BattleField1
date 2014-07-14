@@ -1,16 +1,20 @@
 ﻿namespace BattleField
 {
     using System;
+    using System.Collections.Generic;
+    using BattleField.Interfaces;
 
     public class BaseGameField : IGameField
     {
         private int fieldSize;
-        private GameObject[,] field;
+        private IDictionary <IPosition,IGameObject> allObjects;
+        private IDictionary <IPosition, IInteractableObject> interactableObjects;
 
         public BaseGameField(int fieldSize)
         {
             this.Size = fieldSize;
-            this.field = new GameObject[this.Size,this.Size];
+            this.allObjects = new Dictionary<IPosition, IGameObject>();
+            this.interactableObjects = new Dictionary<IPosition, IInteractableObject>();
 
             // Ideal for Strategy or Bridge/Addapter - use object to determin the randomization principle ig. Easy Medium Hard game
             int count = 0;
@@ -22,32 +26,42 @@
             {
                 int x = randomNumber.Next(0, this.Size);
                 int y = randomNumber.Next(0, this.Size);
-                if(this.field[x,y] == null){
-                    this.field[x, y] = new Mine(randomNumber.Next(1, 6));
+                IPosition position = new Position(x,y);
+                if(!this.allObjects.ContainsKey(position)){
+                    IInteractableObject mine = new Mine(position,randomNumber.Next(1, 6));
+                    this.allObjects[position] = mine;
+                    this.interactableObjects[position] = mine;
                     count++;
                 }
             }
-            for (int i = 0; i < this.Size; i++)
-            {
-                for(int j=0; j < this.Size; j++)
-                {
-                    if (this.field[i, j] == null)
-                    {
-                        this.field[i, j] = new EmptyField();
-                    }
-            
-                }
-            }
-
-           
-
-            
         }
 
-        public GameObject GetObjectAtPosition(Position position)
+        public IGameObject GetObjectAtPosition(IPosition position)
         {
-            return this.field[position.X, position.Y];
+            IGameObject result;
+            if (this.allObjects.TryGetValue(position, out result))
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
         }
+
+        public IInteractableObject GetInteractableObjectAtPosition(IPosition position)
+        {
+            IInteractableObject result;
+            if (this.interactableObjects.TryGetValue(position, out result))
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
         public int Size
         {
