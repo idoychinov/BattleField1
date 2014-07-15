@@ -20,24 +20,31 @@
             this.renderer = renderer;
         }
 
-        public static bool Krai(int rows, int cols, string[,] полето)
+        public static bool EndGame(IGameField gamefield)
         {
-            bool край = true;
+            bool endGame = true;
 
-            for (int i = 2; i < rows; i++)
+            if (gamefield.GetInteractableObjectsCount() != 0)
             {
-                for (int j = 2; j < cols; j++)
-                {
-                    if (полето[i, j] == "1" || полето[i, j] == "2" || полето[i, j] == "3" || полето[i, j] == "4" || полето[i, j] == "5")
-                    {
-                        край = false;
-                        break;
-                    }
-                }
+                endGame = false;
             }
-
-            return край;
+            return endGame;
         }
+
+            //for (int i = 2; i < rows; i++)
+            //{
+            //    for (int j = 2; j < cols; j++)
+            //    {
+            //        if (полето[i, j] == "1" || полето[i, j] == "2" || полето[i, j] == "3" || полето[i, j] == "4" || полето[i, j] == "5")
+            //        {
+            //            край = false;
+            //            break;
+            //        }
+            //    }
+            //}
+            //
+            //return край;
+            //}
 
         public void StartNewGame()
         {
@@ -98,13 +105,13 @@
                 }
                 else
                 {
-                    
+                    DetonateMineAtPosition(position);
                 }
-                //if (!Krai(rows, cols, workField))
-                //{
-                //    break;
-                //}
                 renderer.DrawGameField(gameField);
+                if (EndGame(gameField))
+                {
+                    break;
+                }
             }
 
 
@@ -347,6 +354,119 @@
                     }
                 }
         */
+        private void DetonateMineAtPosition(IPosition position)
+        {
+            Mine mine = gameField.GetInteractableObjectAtPosition(position) as Mine;
 
+            gameField.RemoveObjectFromInteractableObjects(position);
+            gameField.RemoveObjectFromAllObjects(position);
+            gameField.AddObjectToAllObjects(position, new DestroyedField(position));
+            DestroyAllAroundMine(mine);
+        }
+
+        private IPosition[] DestroyAllAroundMine(Mine mine)
+        {
+            IPosition[] arrayOfFieldsToBeDestroyed;
+            arrayOfFieldsToBeDestroyed = new IPosition[24];
+            //strength 1
+            arrayOfFieldsToBeDestroyed[0] = new Position(mine.Position.X - 1, mine.Position.Y - 1);
+            arrayOfFieldsToBeDestroyed[1] = new Position(mine.Position.X - 1, mine.Position.Y + 1);
+            arrayOfFieldsToBeDestroyed[2] = new Position(mine.Position.X + 1, mine.Position.Y + 1);
+            arrayOfFieldsToBeDestroyed[3] = new Position(mine.Position.X + 1, mine.Position.Y - 1);
+            //strength 2
+            arrayOfFieldsToBeDestroyed[4] = new Position(mine.Position.X, mine.Position.Y - 1);
+            arrayOfFieldsToBeDestroyed[5] = new Position(mine.Position.X, mine.Position.Y + 1);
+            arrayOfFieldsToBeDestroyed[6] = new Position(mine.Position.X + 1, mine.Position.Y);
+            arrayOfFieldsToBeDestroyed[7] = new Position(mine.Position.X - 1, mine.Position.Y);
+            //strength 3
+            arrayOfFieldsToBeDestroyed[8] = new Position(mine.Position.X - 2, mine.Position.Y);
+            arrayOfFieldsToBeDestroyed[9] = new Position(mine.Position.X + 2, mine.Position.Y);
+            arrayOfFieldsToBeDestroyed[10] = new Position(mine.Position.X, mine.Position.Y - 2);
+            arrayOfFieldsToBeDestroyed[11] = new Position(mine.Position.X, mine.Position.Y + 2);
+            //strength 4
+            arrayOfFieldsToBeDestroyed[12] = new Position(mine.Position.X - 2, mine.Position.Y - 1);
+            arrayOfFieldsToBeDestroyed[13] = new Position(mine.Position.X - 1, mine.Position.Y - 2);
+            arrayOfFieldsToBeDestroyed[14] = new Position(mine.Position.X + 1, mine.Position.Y - 2);
+            arrayOfFieldsToBeDestroyed[15] = new Position(mine.Position.X + 2, mine.Position.Y - 1);
+            arrayOfFieldsToBeDestroyed[16] = new Position(mine.Position.X - 2, mine.Position.Y + 1);
+            arrayOfFieldsToBeDestroyed[17] = new Position(mine.Position.X - 1, mine.Position.Y + 2);
+            arrayOfFieldsToBeDestroyed[18] = new Position(mine.Position.X + 1, mine.Position.Y + 2);
+            arrayOfFieldsToBeDestroyed[19] = new Position(mine.Position.X + 2, mine.Position.Y + 1);
+            //strength 5
+            arrayOfFieldsToBeDestroyed[20] = new Position(mine.Position.X - 2, mine.Position.Y - 2);
+            arrayOfFieldsToBeDestroyed[21] = new Position(mine.Position.X + 2, mine.Position.Y - 2);
+            arrayOfFieldsToBeDestroyed[22] = new Position(mine.Position.X - 2, mine.Position.Y + 2);
+            arrayOfFieldsToBeDestroyed[23] = new Position(mine.Position.X + 2, mine.Position.Y + 2);
+
+            switch (mine.GetStrength())
+            {
+                case 1:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        for (int i = 0; i < 12; i++)
+                        {
+                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        for (int i = 0; i < 20; i++)
+                        {
+                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
+                        }
+                        break;
+                    }
+                case 5:
+                    {
+                        for (int i = 0; i < 24; i++)
+                        {
+                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
+                        }
+                        break;
+                    }
+
+            }
+
+
+            return arrayOfFieldsToBeDestroyed;
+        }
+
+        private void DestroyFieldsAroundDetonatedMine(IPosition position)
+        {
+
+            if (IsPositionInsideField(gameField, position))
+            {
+                gameField.RemoveObjectFromInteractableObjects(position);
+                gameField.RemoveObjectFromAllObjects(position);
+                gameField.AddObjectToAllObjects(position, new DestroyedField(position));
+            }
+
+
+        }
+
+        private bool IsPositionInsideField(IGameField gameField, IPosition position)
+        {
+            if (position.X >=0 && position.Y >=0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

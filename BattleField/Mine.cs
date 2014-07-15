@@ -18,5 +18,10 @@
             this.strength = strength;
         }
 
+        public int GetStrength() 
+        {
+            return this.strength;
+        }
+
     }
 }

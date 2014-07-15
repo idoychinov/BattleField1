@@ -7,9 +7,38 @@
     public class BaseGameField : IGameField
     {
         private int fieldSize;
-        private IDictionary <IPosition,IGameObject> allObjects;
-        private IDictionary <IPosition, IInteractableObject> interactableObjects;
+        private IDictionary<IPosition, IGameObject> allObjects;
+        private IDictionary<IPosition, IInteractableObject> interactableObjects;
+        public IDictionary<IPosition, IInteractableObject> InteractableObjects
+        {
+            get { return interactableObjects; }
+        }
+        public IDictionary<IPosition, IGameObject> AllObjects
+        {
+            get { return allObjects; }
+        }
 
+        public void AddObjectToAllObjects(IPosition position, IGameObject objToBeAdded)
+        {
+            this.allObjects.Add(position, objToBeAdded);
+        }
+        public void RemoveObjectFromAllObjects(IPosition position)
+        {
+            this.allObjects.Remove(position);
+        }
+
+        public void AddObjectToInteractableObjects(IPosition position, IInteractableObject objToBeAdded)
+        {
+            this.interactableObjects.Add(position, objToBeAdded);
+        }
+        public void RemoveObjectFromInteractableObjects(IPosition position)
+        {
+            this.interactableObjects.Remove(position);
+        }
+        public int GetInteractableObjectsCount()
+        {
+            return this.interactableObjects.Count;
+        }
         public BaseGameField(int fieldSize)
         {
             this.Size = fieldSize;
@@ -26,9 +55,10 @@
             {
                 int x = randomNumber.Next(0, this.Size);
                 int y = randomNumber.Next(0, this.Size);
-                IPosition position = new Position(x,y);
-                if(!this.allObjects.ContainsKey(position)){
-                    IInteractableObject mine = new Mine(position,randomNumber.Next(1, 6));
+                IPosition position = new Position(x, y);
+                if (!this.allObjects.ContainsKey(position))
+                {
+                    IInteractableObject mine = new Mine(position, randomNumber.Next(1, 6));
                     this.allObjects[position] = mine;
                     this.interactableObjects[position] = mine;
                     count++;
@@ -62,7 +92,6 @@
             }
         }
 
-
         public int Size
         {
             get
@@ -74,6 +103,6 @@
                 this.fieldSize = value;
             }
         }
-        
+
     }
 }
