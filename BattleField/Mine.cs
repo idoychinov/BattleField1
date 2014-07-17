@@ -6,7 +6,7 @@
     public class Mine : GameObject, IInteractableObject
     {
         private const int CharNumberOffset = 48;
-        private int strength;
+        private readonly int strength;
         public Mine(IPosition position,int strength) 
             : base(position,(char)(CharNumberOffset + strength))
         {

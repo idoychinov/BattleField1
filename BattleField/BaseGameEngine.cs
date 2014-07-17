@@ -10,7 +10,7 @@
 
         private IGameField gameField;
 
-        private IRenderer renderer;
+        private readonly IRenderer renderer;
 
         // to remove 
         private int fieldSize;
@@ -31,20 +31,20 @@
             return endGame;
         }
 
-            //for (int i = 2; i < rows; i++)
-            //{
-            //    for (int j = 2; j < cols; j++)
-            //    {
-            //        if (полето[i, j] == "1" || полето[i, j] == "2" || полето[i, j] == "3" || полето[i, j] == "4" || полето[i, j] == "5")
-            //        {
-            //            край = false;
-            //            break;
-            //        }
-            //    }
-            //}
-            //
-            //return край;
-            //}
+        //for (int i = 2; i < rows; i++)
+        //{
+        //    for (int j = 2; j < cols; j++)
+        //    {
+        //        if (полето[i, j] == "1" || полето[i, j] == "2" || полето[i, j] == "3" || полето[i, j] == "4" || полето[i, j] == "5")
+        //        {
+        //            край = false;
+        //            break;
+        //        }
+        //    }
+        //}
+        //
+        //return край;
+        //}
 
         public void StartNewGame()
         {
@@ -79,33 +79,31 @@
                 countPlayed++;
                 Console.WriteLine("Please enter coordinates: ");
                 string xy = Console.ReadLine();
-                int x = int.Parse(xy.Substring(0, 1));
-                int y = int.Parse(xy.Substring(2, 1));
-
-                while ((x < 0 || x >= this.gameField.Size) && (y < 0 || y >= this.gameField.Size))
+                if (xy != null)
                 {
-                    Console.WriteLine("Invalid move !");
-                    Console.WriteLine("Please enter coordinates: ");
-                    xy = Console.ReadLine();
-                    x = int.Parse(xy.Substring(0, 1));
-                    y = int.Parse(xy.Substring(2, 1));
-                }
+                    int x = int.Parse(xy.Substring(0, 1));
+                    int y = int.Parse(xy.Substring(2, 1));
 
-                //x += 2;
-                //y = (2 * y) + 2;
-                var position = new Position();
+                    while ((x < 0 || x >= this.gameField.Size) && (y < 0 || y >= this.gameField.Size))
+                    {
+                        Console.WriteLine("Invalid move !");
+                        Console.WriteLine("Please enter coordinates: ");
+                        xy = Console.ReadLine();
+                        x = int.Parse(xy.Substring(0, 1));
+                        y = int.Parse(xy.Substring(2, 1));
+                    }
 
-                position.X = x;
-                position.Y = y;
+                    var position = new Position { X = x, Y = y };
 
-                if (gameField.GetInteractableObjectAtPosition(position) == null)
-                {
-                    Console.WriteLine("Invalid move !");
-                    Console.WriteLine("Please enter coordinates: ");
-                }
-                else
-                {
-                    DetonateMineAtPosition(position);
+                    if (gameField.GetInteractableObjectAtPosition(position) == null)
+                    {
+                        Console.WriteLine("Invalid move !");
+                        Console.WriteLine("Please enter coordinates: ");
+                    }
+                    else
+                    {
+                        DetonateMineAtPosition(position);
+                    }
                 }
                 renderer.DrawGameField(gameField);
                 if (EndGame(gameField))
@@ -113,261 +111,20 @@
                     break;
                 }
             }
-
-
             Console.WriteLine("Game over. Detonated mines: " + countPlayed);
-
-
-
-            //int hitCoordinate = Convert.ToInt32(workField[x, y]);
-            //switch (hitCoordinate)
-            //{
-            //    case 1: 
-            //        HitOne(x, y, rows, cols, workField); 
-            //        break;
-            //    case 2:
-            //        PrasniDvama(x, y, rows, cols, workField);
-            //        break;
-            //    case 3:
-            //        HitThree(x, y, rows, cols, workField);
-            //        break;
-            //    case 4:
-            //        HitFour(x, y, rows, cols, workField);
-            //        break;
-            //    case 5:
-            //        HitFive(x, y, rows, cols, workField);
-            //        break;
-            //}
-
-
-
         }
-        /*
-                private void HitOne(int x, int y, int rows, int cols, string[,] workField)
-                {
-                    workField[x, y] = "X";
-
-                    if (x - 1 > 1 && y - 2 > 1)
-                    {
-                        workField[x - 1, y - 2] = "X";
-                    }
-
-                    if (x - 1 > 1 && y < cols - 2)
-                    {
-                        workField[x - 1, y + 2] = "X";
-                    }
-
-                    if (x < rows - 1 && y < cols - 2)
-                    {
-                        workField[x + 1, y + 2] = "X";
-                    }
-
-                    if (x < rows - 1 && y - 2 > 1)
-                    {
-                        workField[x + 1, y - 2] = "X";
-                    }
-                }
-
-                private void PrasniDvama(int x, int y, int rows, int cols, string[,] workField)
-                {
-                    workField[x, y] = "X";
-                    this.HitOne(x, y, rows, cols, workField);
-
-                    if (y - 2 > 1)
-                    {
-                        workField[x, y - 2] = "X";
-                    }
-
-                    if (y < cols - 2)
-                    {
-                        workField[x, y + 2] = "X";
-                    }
-
-                    if (x - 1 > 1)
-                    {
-                        workField[x - 1, y] = "X";
-                    }
-
-                    if (x < rows - 1)
-                    {
-                        workField[x + 1, y] = "X";
-                    }
-                }
-
-                private void HitThree(int x, int y, int rows, int cols, string[,] workField)
-                {
-                    this.PrasniDvama(x, y, rows, cols, workField);
-
-                    if (x - 2 > 1)
-                    {
-                        workField[x - 2, y] = "X";
-                    }
-
-                    if (x < rows - 2)
-                    {
-                        workField[x + 2, y] = "X";
-                    }
-
-                    if (y - 4 > 1)
-                    {
-                        workField[x, y - 4] = "X";
-                    }
-
-                    if (y == 18)
-                    {
-                        workField[x, y + 2] = "X";
-                    }
-                    else if (y == 20)
-                    {
-                        workField[x, y] = "X";
-                    }
-                    else
-                    {
-                        if (y < cols - 3)
-                        {
-                            workField[x, y + 4] = "X";
-                        }
-                    }
-                }
-
-                private void HitFour(int x, int y, int rows, int cols, string[,] workField)
-                {
-                    this.HitThree(x, y, rows, cols, workField);
-
-                    if (x - 2 > 1 && y - 2 > 1)
-                    {
-                        workField[x - 2, y - 2] = "X";
-                    }
-
-                    if (x - 1 > 1 && y - 4 > 1)
-                    {
-                        workField[x - 1, y - 4] = "X";
-                    }
-
-                    if (x - 2 > 1 && y < cols - 2)
-                    {
-                        workField[x - 2, y + 2] = "X";
-                    }
-
-                    if (x < rows - 1 && y - 4 > 1)
-                    {
-                        workField[x + 1, y - 4] = "X";
-                    }
-
-                    if (x < rows - 2 && y - 2 > 1)
-                    {
-                        workField[x + 2, y - 2] = "X";
-                    }
-
-                    if (x < rows - 2 && y < cols - 2)
-                    {
-                        workField[x + 2, y + 2] = "X";
-                    }
-
-                    if (y == 18)
-                    {
-                        if (x - 1 > 1)
-                        {
-                            workField[x - 1, y + 2] = "X";
-                        }
-
-                        if (x < rows - 1)
-                        {
-                            workField[x + 1, y + 2] = "X";
-                        }
-                    }
-                    else if (y == 20)
-                    {
-                        if (x - 1 > 1)
-                        {
-                            workField[x - 1, y] = "X";
-                        }
-
-                        if (x < rows - 1)
-                        {
-                            workField[x + 1, y] = "X";
-                        }
-                    }
-                    else
-                    {
-                        if (x - 1 > 1 && y < cols - 3)
-                        {
-                            workField[x - 1, y + 4] = "X";
-                        }
-
-                        if (x < rows - 1 && y < cols - 3)
-                        {
-                            workField[x + 1, y + 4] = "X";
-                        }
-                    }
-                }
-
-                private void HitFive(int x, int y, int rows, int cols, string[,] poleZaRabota)
-                {
-                    this.HitFour(x, y, rows, cols, poleZaRabota);
-
-                    if (x - 2 > 1 && y - 4 > 1)
-                    {
-                        poleZaRabota[x - 2, y - 4] = "X";
-                    }
-
-                    if (x < rows - 2 && y - 4 > 1)
-                    {
-                        poleZaRabota[x + 2, y - 4] = "X";
-                    }
-
-                    if (y == 18)
-                    {
-                        if (x < rows - 2)
-                        {
-                            poleZaRabota[x + 2, y + 2] = "X";
-                        }
-
-                        if (x - 2 > 1)
-                        {
-                            poleZaRabota[x - 2, y + 2] = "X";
-                        }
-                    }
-                    else if (y == 20)
-                    {
-                        if (x < rows - 2)
-                        {
-                            poleZaRabota[x + 2, y] = "X";
-                        }
-
-                        if (x - 2 > 1)
-                        {
-                            poleZaRabota[x - 2, y] = "X";
-                        }
-                    }
-                    else
-                    {
-                        if (x < rows - 2 && y < cols - 3)
-                        {
-                            poleZaRabota[x + 2, y + 4] = "X";
-                        }
-
-                        if (x - 2 > 1 && y < cols - 3)
-                        {
-                            poleZaRabota[x - 2, y + 4] = "X";
-                        }
-                    }
-                }
-        */
         private void DetonateMineAtPosition(IPosition position)
         {
             Mine mine = gameField.GetInteractableObjectAtPosition(position) as Mine;
-
             gameField.RemoveObjectFromInteractableObjects(position);
             gameField.RemoveObjectFromAllObjects(position);
             gameField.AddObjectToAllObjects(position, new DestroyedField(position));
-            DestroyAllAroundMine(mine);
+            DestroyAllFieldsAroundMine(mine);
         }
 
-        private IPosition[] DestroyAllAroundMine(Mine mine)
+        private void DestroyAllFieldsAroundMine(Mine mine)
         {
-            IPosition[] arrayOfFieldsToBeDestroyed;
-            arrayOfFieldsToBeDestroyed = new IPosition[24];
+            IPosition[] arrayOfFieldsToBeDestroyed = new IPosition[24];
             //strength 1
             arrayOfFieldsToBeDestroyed[0] = new Position(mine.Position.X - 1, mine.Position.Y - 1);
             arrayOfFieldsToBeDestroyed[1] = new Position(mine.Position.X - 1, mine.Position.Y + 1);
@@ -402,67 +159,48 @@
             {
                 case 1:
                     {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
-                        }
+                        DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed, 0, 4);
                         break;
                     }
                 case 2:
                     {
-                        for (int i = 0; i < 8; i++)
-                        {
-                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
-                        }
+                        DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed, 0, 8);
                         break;
                     }
                 case 3:
                     {
-                        for (int i = 0; i < 12; i++)
-                        {
-                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
-                        }
+                        DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed, 0, 12);
                         break;
                     }
                 case 4:
                     {
-                        for (int i = 0; i < 20; i++)
-                        {
-                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
-                        }
+                        DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed, 0, 20);
                         break;
                     }
                 case 5:
                     {
-                        for (int i = 0; i < 24; i++)
-                        {
-                            DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed[i]);
-                        }
+                        DestroyFieldsAroundDetonatedMine(arrayOfFieldsToBeDestroyed, 0, 24);
                         break;
                     }
-
             }
-
-
-            return arrayOfFieldsToBeDestroyed;
         }
 
-        private void DestroyFieldsAroundDetonatedMine(IPosition position)
+        private void DestroyFieldsAroundDetonatedMine(IPosition[] positions, int startIndex, int numberOfFieldsToBeDestroyed)
         {
-
-            if (IsPositionInsideField(gameField, position))
+            for (int i = startIndex; i < startIndex + numberOfFieldsToBeDestroyed; i++)
             {
-                gameField.RemoveObjectFromInteractableObjects(position);
-                gameField.RemoveObjectFromAllObjects(position);
-                gameField.AddObjectToAllObjects(position, new DestroyedField(position));
+                if (IsPositionInsideField(gameField, positions[i]))
+                {
+                    gameField.RemoveObjectFromInteractableObjects(positions[i]);
+                    gameField.RemoveObjectFromAllObjects(positions[i]);
+                    gameField.AddObjectToAllObjects(positions[i], new DestroyedField(positions[i]));
+                }
             }
-
-
         }
 
         private bool IsPositionInsideField(IGameField gameField, IPosition position)
         {
-            if (position.X >=0 && position.Y >=0)
+            if ((position.X >= 0 && position.X<=gameField.Size)&&(position.Y >= 0 && position.Y<=gameField.Size))
             {
                 return true;
             }

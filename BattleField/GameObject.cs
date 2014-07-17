@@ -6,30 +6,18 @@
     {
 
         protected char graphicalRepresentation;
-        private IPosition position;
+
+        public IPosition Position { get; private set; }
 
         protected GameObject(IPosition position) :
-            this(position,' ')
+            this(position, ' ')
         {
         }
 
-        protected GameObject(IPosition position, char graphicalRepresentation) 
+        protected GameObject(IPosition position, char graphicalRepresentation)
         {
             this.Position = position;
             this.graphicalRepresentation = graphicalRepresentation;
-        }
-
-        public IPosition Position 
-        {
-            get
-            {
-                return this.position;
-            }
-
-            private set
-            {
-                this.position = value;
-            }
         }
 
         public string GetGraphicalRepresentation()
