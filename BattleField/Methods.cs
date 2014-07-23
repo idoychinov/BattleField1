@@ -7,9 +7,5 @@
         // tuk e magiqta!!!!
         // we got the POWER
 
-        
-        
-
-        
     }
 }

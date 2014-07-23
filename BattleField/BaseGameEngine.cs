@@ -31,90 +31,77 @@
             return endGame;
         }
 
-        //for (int i = 2; i < rows; i++)
-        //{
-        //    for (int j = 2; j < cols; j++)
-        //    {
-        //        if (полето[i, j] == "1" || полето[i, j] == "2" || полето[i, j] == "3" || полето[i, j] == "4" || полето[i, j] == "5")
-        //        {
-        //            край = false;
-        //            break;
-        //        }
-        //    }
-        //}
-        //
-        //return край;
-        //}
-
         public void StartNewGame()
         {
             this.renderer.PrintMessage("Welcome to \"Battle Field game.\" Enter battle field size: n = ");
-            this.fieldSize = Convert.ToInt32(Console.ReadLine());
-
-            while (this.fieldSize < MinFieldSize || this.fieldSize > MaxFieldSize)
+            do
             {
-                Console.WriteLine("Enter a number between 1 and 10!");
-                this.fieldSize = Convert.ToInt32(Console.ReadLine());
-            }
+                string input = Console.ReadLine();
+                if (input != null)
+                {
+                    if (int.TryParse(input, out fieldSize) == false)
+                    {
+                        Console.WriteLine("Invalid input! Please enter a number");
+                    }
+                    else if (this.fieldSize < MinFieldSize || MaxFieldSize < this.fieldSize)
+                    {
+                        Console.WriteLine("Invalid input! Please enter a number between {0} and {1}", MinFieldSize, MaxFieldSize);
+                        //throw new ArgumentOutOfRangeException();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input! Please enter a number");
+                    //throw new NullReferenceException();
+                }
+
+            } while (true);
 
             gameField = new BaseGameField(fieldSize);
-
-
-
             this.Run();
         }
 
         private void Run()
         {
             this.renderer.DrawGameField(gameField);
-            int countPlayed = 0;
-            this.VremeEIgrachaDaDeistva(countPlayed);
+            this.MakeMove();
         }
 
-        private void VremeEIgrachaDaDeistva(int countPlayed)
+        private void MakeMove()
         {
+            int detonatedMinesCounter = 0;
 
             while (true)
             {
-                countPlayed++;
-                Console.WriteLine("Please enter coordinates: ");
-                string xy = Console.ReadLine();
-                if (xy != null)
+                detonatedMinesCounter++;
+
+                IPosition position = ReadUserCoordinatesInput();
+                if (gameField.GetInteractableObjectAtPosition(position) == null)
                 {
-                    int x = int.Parse(xy.Substring(0, 1));
-                    int y = int.Parse(xy.Substring(2, 1));
-
-                    while ((x < 0 || x >= this.gameField.Size) && (y < 0 || y >= this.gameField.Size))
-                    {
-                        Console.WriteLine("Invalid move !");
-                        Console.WriteLine("Please enter coordinates: ");
-                        xy = Console.ReadLine();
-                        x = int.Parse(xy.Substring(0, 1));
-                        y = int.Parse(xy.Substring(2, 1));
-                    }
-
-                    var position = new Position { X = x, Y = y };
-
-                    if (gameField.GetInteractableObjectAtPosition(position) == null)
-                    {
-                        Console.WriteLine("Invalid move !");
-                        Console.WriteLine("Please enter coordinates: ");
-                    }
-                    else
-                    {
-                        DetonateMineAtPosition(position);
-                    }
+                    Console.WriteLine("Invalid move !");
+                    Console.WriteLine("Please enter coordinates: ");
                 }
+                else
+                {
+                    DetonateMineAtPosition(position);
+                }
+
                 renderer.DrawGameField(gameField);
                 if (EndGame(gameField))
                 {
                     break;
                 }
             }
-            Console.WriteLine("Game over. Detonated mines: " + countPlayed);
+            Console.WriteLine("Congratulations! You win! Detonated mines: " + detonatedMinesCounter);
         }
+
         private void DetonateMineAtPosition(IPosition position)
         {
+            //TODO make this work without the "as" operator
             Mine mine = gameField.GetInteractableObjectAtPosition(position) as Mine;
             gameField.RemoveObjectFromInteractableObjects(position);
             gameField.RemoveObjectFromAllObjects(position);
@@ -200,11 +187,56 @@
 
         private bool IsPositionInsideField(IGameField gameField, IPosition position)
         {
-            if ((position.X >= 0 && position.X<=gameField.Size)&&(position.Y >= 0 && position.Y<=gameField.Size))
+            if ((position.X >= 0 && position.X <= gameField.Size) && (position.Y >= 0 && position.Y <= gameField.Size))
             {
                 return true;
             }
             return false;
+        }
+
+        private IPosition ReadUserCoordinatesInput()
+        {
+            Console.WriteLine("Please enter coordinates: ");
+            string input = Console.ReadLine();
+            char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
+            int x = 0;
+            int y = 0;
+
+            if (input != null)
+            {
+                string[] inputData = input.Split(delimiterChars);
+                if (inputData.Length != 2)
+                {
+                    Console.WriteLine("Invalid input! Please enter exactly two numbers");
+                    //throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+
+                    if (int.TryParse(inputData[0], out x) == false)
+                    {
+                        Console.WriteLine("Invalid input!");
+                        //throw new ArgumentOutOfRangeException();
+                    }
+                    if (int.TryParse(inputData[1], out y) == false)
+                    {
+                        Console.WriteLine("Invalid input!");
+                        //throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invallid input! Please enter a value");
+                //throw new NullReferenceException();
+            }
+            IPosition position = new Position(x, y);
+            if (!IsPositionInsideField(gameField, position))
+            {
+                Console.WriteLine("Invalid input!");
+                //throw new ArgumentOutOfRangeException();
+            }
+            return position;
         }
     }
 }
