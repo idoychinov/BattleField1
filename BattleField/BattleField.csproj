@@ -48,6 +48,13 @@
     <Compile Include="BaseRenderer.cs" />
     <Compile Include="BattleFieldGame.cs" />
     <Compile Include="DestroyedField.cs" />
+    <Compile Include="DetonateMineStrategy.cs" />
+    <Compile Include="DetonateOptions.cs" />
+    <Compile Include="DetonateStrength1Mine.cs" />
+    <Compile Include="DetonateStrength2Mine.cs" />
+    <Compile Include="DetonateStrength3Mine.cs" />
+    <Compile Include="DetonateStrength4Mine.cs" />
+    <Compile Include="DetonateStrength5Mine.cs" />
     <Compile Include="GameStatus.cs" />
     <Compile Include="Interfaces\IGameField.cs" />
     <Compile Include="GameObject.cs" />

@@ -5,7 +5,7 @@
     using BattleField.Interfaces;
 
     public class KeyboardInterface : IUserInterface
-    {        
+    {
         public int ReadInteger()
         {
             var input = Console.ReadLine();
@@ -16,22 +16,26 @@
         public IEnumerable<int> ReadMultipleIntegers(int count)
         {
             var input = Console.ReadLine();
-            string[] splittedResult = input.Split(' ');
-            var splittedItemsLenght = splittedResult.Length;
-
-            if (splittedItemsLenght != count)
+            if (input != null)
             {
-                throw new ArgumentException("The length of the splitted items doesn't match the expected count.");
+                string[] splittedResult = input.Split(' ');
+                var splittedItemsLenght = splittedResult.Length;
+
+                if (splittedItemsLenght != count)
+                {
+                    throw new ArgumentException("The length of the splitted items doesn't match the expected count.");
+                }
+
+                int[] resultNumbers = new int[splittedItemsLenght];
+
+                for (int i = 0; i < resultNumbers.Length; i++)
+                {
+                    resultNumbers[i] = this.ConvertToInteger(splittedResult[i]);
+                }
+
+                return resultNumbers;
             }
-
-            int[] resultNumbers = new int[splittedItemsLenght];
-
-            for (int i = 0; i < resultNumbers.Length; i++)
-            {
-                resultNumbers[i] = this.ConvertToInteger(splittedResult[i]);
-            }
-
-            return resultNumbers;
+            throw new NullReferenceException("Error! Input cannot be null");
         }
 
         private int ConvertToInteger(string value)

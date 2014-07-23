@@ -10,31 +10,6 @@
         public IDictionary<IPosition, IInteractableObject> InteractableObjects { get; private set; }
         public int Size { get; private set; }
 
-        public void AddObjectToAllObjects(IPosition position, IGameObject objToBeAdded)
-        {
-            this.AllObjects.Add(position, objToBeAdded);
-        }
-
-        public void RemoveObjectFromAllObjects(IPosition position)
-        {
-            this.AllObjects.Remove(position);
-        }
-
-        public void AddObjectToInteractableObjects(IPosition position, IInteractableObject objToBeAdded)
-        {
-            this.InteractableObjects.Add(position, objToBeAdded);
-        }
-
-        public void RemoveObjectFromInteractableObjects(IPosition position)
-        {
-            this.InteractableObjects.Remove(position);
-        }
-
-        public int GetInteractableObjectsCount()
-        {
-            return this.InteractableObjects.Count;
-        }
-
         public BaseGameField(int fieldSize)
         {
             this.Size = fieldSize;
@@ -81,5 +56,31 @@
             }
             return null;
         }
+
+        public void AddObjectToAllObjects(IPosition position, IGameObject objToBeAdded)
+        {
+            this.AllObjects.Add(position, objToBeAdded);
+        }
+
+        public void RemoveObjectFromAllObjects(IPosition position)
+        {
+            this.AllObjects.Remove(position);
+        }
+
+        public void AddObjectToInteractableObjects(IPosition position, IInteractableObject objToBeAdded)
+        {
+            this.InteractableObjects.Add(position, objToBeAdded);
+        }
+
+        public void RemoveObjectFromInteractableObjects(IPosition position)
+        {
+            this.InteractableObjects.Remove(position);
+        }
+
+        public int GetInteractableObjectsCount()
+        {
+            return this.InteractableObjects.Count;
+        }
+
     }
 }
