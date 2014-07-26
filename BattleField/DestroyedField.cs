@@ -1,5 +1,6 @@
 ﻿namespace BattleField
 {
+    using System;
     using BattleField.Interfaces;
 
     public class DestroyedField : GameObject

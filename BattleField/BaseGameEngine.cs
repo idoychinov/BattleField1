@@ -37,7 +37,7 @@
                 {
                     break;
                 }
-            } 
+            }
             while (true);
 
             this.gameField = new BaseGameField(fieldSize);
@@ -59,14 +59,35 @@
                 detonatedMinesCounter++;
                 IPosition position = this.ReadUserCoordinatesInput();
 
-                if (this.gameField.GetInteractableObjectAtPosition(position) == null)
+                var gameObjectAtPosition = this.gameField.GetInteractableObjectAtPosition(position);
+                if (gameObjectAtPosition == null)
                 {
                     this.renderer.PrintMessage("Invalid move !");
                     this.renderer.PrintMessage("Please enter coordinates: ");
                 }
                 else
                 {
-                    this.DetonateMineAtPosition(position);
+                    var area = gameObjectAtPosition.InteractionAffectedArea();
+                    foreach (var item in area)
+                    {
+                        if (item.X >= 0 && item.X < this.gameField.Size && item.Y >= 0 && item.Y < this.gameField.Size)
+                        {
+                            var destroyedField = new DestroyedField(position);
+                            if (this.gameField.GetObjectAtPosition(item) == null)
+                            {
+                                this.gameField.AddObjectToAllObjects(position, destroyedField);
+                            }
+                            else
+                            {
+                                if (this.gameField.GetInteractableObjectAtPosition(item) != null)
+                                {
+                                    this.gameField.RemoveObjectFromInteractableObjects(position);
+                                }
+                                this.gameField.RemoveObjectFromAllObjects(position);
+                                this.gameField.AddObjectToAllObjects(position, destroyedField);
+                            }
+                        }
+                    }
                 }
 
                 this.renderer.DrawGameField(this.gameField);
@@ -99,48 +120,9 @@
             this.gameField.RemoveObjectFromInteractableObjects(position);
             this.gameField.RemoveObjectFromAllObjects(position);
             this.gameField.AddObjectToAllObjects(position, new DestroyedField(position));
-            this.DestroyAllFieldsAroundMine(mine);
+            //this.DestroyAllFieldsAroundMine(mine);
         }
 
-        private void DestroyAllFieldsAroundMine(Mine mine)
-        {
-            DetonateOptions detonate = null;
-
-            switch (mine.GetStrength())
-            {
-                case 1:
-                    {
-                        detonate = new DetonateOptions(new DetonateStrength1Mine());
-                        break;
-                    }
-
-                case 2:
-                    {
-                        detonate = new DetonateOptions(new DetonateStrength2Mine());
-                        break;
-                    }
-
-                case 3:
-                    {
-                        detonate = new DetonateOptions(new DetonateStrength3Mine());
-                        break;
-                    }
-
-                case 4:
-                    {
-                        detonate = new DetonateOptions(new DetonateStrength4Mine());
-                        break;
-                    }
-
-                case 5:
-                    {
-                        detonate = new DetonateOptions(new DetonateStrength5Mine());
-                        break;
-                    }
-            }
-
-            detonate.Detonate(this.gameField, mine);
-        }
 
         private void DestroyFields(IPosition[] positions, int startIndex, int numberOfFieldsToBeDestroyed)
         {

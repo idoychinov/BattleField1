@@ -1,15 +1,17 @@
 ﻿namespace BattleField
 {
     using System;
+    using System.Collections.Generic;
     using BattleField.Interfaces;
 
     public class Mine : GameObject, IInteractableObject
     {
         private const int CharNumberOffset = 48;
         private readonly int strength;
+        private IInteractionStrategy options;
 
-        public Mine(IPosition position, int strength)
-            : base(position, (char)(CharNumberOffset + strength))
+        internal Mine(IPosition position,int strength, IInteractionStrategy options) 
+            : base(position,(char)(CharNumberOffset + strength))
         {
             if (strength < 1 && strength > 5)
             {
@@ -17,11 +19,22 @@
             }
 
             this.strength = strength;
+            this.options = options;
         }
 
-        public int GetStrength()
+        public IEnumerable<IPosition> InteractionAffectedArea()
+        {
+            var area = new List<IPosition>();
+
+            return area;
+        }
+
+        public int GetStrength() 
         {
             return this.strength;
         }
+
+
+
     }
 }

@@ -48,13 +48,12 @@
     <Compile Include="BaseRenderer.cs" />
     <Compile Include="BattleFieldGame.cs" />
     <Compile Include="DestroyedField.cs" />
-    <Compile Include="DetonateMineStrategy.cs" />
-    <Compile Include="DetonateOptions.cs" />
-    <Compile Include="DetonateStrength1Mine.cs" />
-    <Compile Include="DetonateStrength2Mine.cs" />
-    <Compile Include="DetonateStrength3Mine.cs" />
-    <Compile Include="DetonateStrength4Mine.cs" />
-    <Compile Include="DetonateStrength5Mine.cs" />
+    <Compile Include="DetonationStrategy.cs" />
+    <Compile Include="DetonationStrategyWithOneStrenght.cs" />
+    <Compile Include="DetonationStrategyWithTwoStrenght.cs" />
+    <Compile Include="DetonationStrategyWithThreeStrenght.cs" />
+    <Compile Include="DetonationStrategyWithFourStrenght.cs" />
+    <Compile Include="DetonationStrategyWithFiveStrenght.cs" />
     <Compile Include="GameStatus.cs" />
     <Compile Include="Interfaces\IGameField.cs" />
     <Compile Include="GameObject.cs" />
@@ -63,6 +62,7 @@
     <Compile Include="Interfaces\IGameObject.cs" />
     <Compile Include="Interfaces\IGameStatus.cs" />
     <Compile Include="Interfaces\IInteractableObject.cs" />
+    <Compile Include="Interfaces\IInteractionStrategy.cs" />
     <Compile Include="Interfaces\IPosition.cs" />
     <Compile Include="Interfaces\IRenderer.cs" />
     <Compile Include="Interfaces\IUserInterface.cs" />
@@ -70,6 +70,7 @@
     <Compile Include="Methods.cs" />
     <Compile Include="Mine.cs" />
     <Compile Include="Position.cs" />
+    <Compile Include="MineFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -27,7 +27,9 @@
 
                 if (!this.AllObjects.ContainsKey(position))
                 {
-                    IInteractableObject mine = new Mine(position, randomNumber.Next(1, 6));
+                    MineFactory factory = new MineFactory();
+
+                    IInteractableObject mine = factory.CreateMine(position, randomNumber.Next(1, 6));
                     this.AllObjects[position] = mine;
                     this.InteractableObjects[position] = mine;
                     count++;
