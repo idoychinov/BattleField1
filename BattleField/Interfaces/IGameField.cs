@@ -2,6 +2,8 @@
 {
     public interface IGameField
     {
+        int Size { get; }
+
         IGameObject GetObjectAtPosition(IPosition position);
 
         IInteractableObject GetInteractableObjectAtPosition(IPosition position);
@@ -10,14 +12,10 @@
 
         void RemoveObjectFromAllObjects(IPosition position);
 
-
         void AddObjectToInteractableObjects(IPosition position, IInteractableObject objToBeAdded);
 
         void RemoveObjectFromInteractableObjects(IPosition position);
 
         int GetInteractableObjectsCount();
-
-
-        int Size { get; }
     }
 }
