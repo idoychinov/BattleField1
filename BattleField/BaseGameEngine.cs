@@ -167,7 +167,7 @@
 
         private IPosition ReadUserCoordinatesInput()
         {
-            Console.WriteLine("Please enter coordinates: ");
+            this.renderer.PrintMessage("Please enter coordinates: ");
             IEnumerable<int> enteredCoordinates = this.userInterface.ReadMultipleIntegers(2);
             IEnumerator<int> i = enteredCoordinates.GetEnumerator();
             i.MoveNext();
