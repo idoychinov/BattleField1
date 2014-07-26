@@ -8,9 +8,9 @@
     {
         private const int CharNumberOffset = 48;
         private readonly int strength;
-        private IInteractionStrategy options;
+        private IInteractionStrategy interactionStrategy;
 
-        internal Mine(IPosition position,int strength, IInteractionStrategy options) 
+        internal Mine(IPosition position,int strength, IInteractionStrategy interactionStrategy) 
             : base(position,(char)(CharNumberOffset + strength))
         {
             if (strength < 1 && strength > 5)
@@ -19,13 +19,12 @@
             }
 
             this.strength = strength;
-            this.options = options;
+            this.interactionStrategy = interactionStrategy;
         }
 
         public IEnumerable<IPosition> InteractionAffectedArea()
         {
-            var area = new List<IPosition>();
-
+            var area = this.interactionStrategy.GetAffectedArea(this.Position);
             return area;
         }
 

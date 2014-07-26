@@ -58,8 +58,8 @@
             {
                 detonatedMinesCounter++;
                 IPosition position = this.ReadUserCoordinatesInput();
-
                 var gameObjectAtPosition = this.gameField.GetInteractableObjectAtPosition(position);
+
                 if (gameObjectAtPosition == null)
                 {
                     this.renderer.PrintMessage("Invalid move !");
@@ -68,23 +68,23 @@
                 else
                 {
                     var area = gameObjectAtPosition.InteractionAffectedArea();
-                    foreach (var item in area)
+                    foreach (var itemPosition in area)
                     {
-                        if (item.X >= 0 && item.X < this.gameField.Size && item.Y >= 0 && item.Y < this.gameField.Size)
+                        if (itemPosition.X >= 0 && itemPosition.X < this.gameField.Size && itemPosition.Y >= 0 && itemPosition.Y < this.gameField.Size)
                         {
-                            var destroyedField = new DestroyedField(position);
-                            if (this.gameField.GetObjectAtPosition(item) == null)
+                            var destroyedField = new DestroyedField(itemPosition);
+                            if (this.gameField.GetObjectAtPosition(itemPosition) == null)
                             {
-                                this.gameField.AddObjectToAllObjects(position, destroyedField);
+                                this.gameField.AddObjectToAllObjects(itemPosition, destroyedField);
                             }
                             else
                             {
-                                if (this.gameField.GetInteractableObjectAtPosition(item) != null)
+                                if (this.gameField.GetInteractableObjectAtPosition(itemPosition) != null)
                                 {
-                                    this.gameField.RemoveObjectFromInteractableObjects(position);
+                                    this.gameField.RemoveObjectFromInteractableObjects(itemPosition);
                                 }
-                                this.gameField.RemoveObjectFromAllObjects(position);
-                                this.gameField.AddObjectToAllObjects(position, destroyedField);
+                                this.gameField.RemoveObjectFromAllObjects(itemPosition);
+                                this.gameField.AddObjectToAllObjects(itemPosition, destroyedField);
                             }
                         }
                     }
