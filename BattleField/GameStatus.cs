@@ -1,10 +1,9 @@
 ﻿namespace BattleField
 {
-    using System;
     using System.Collections.Generic;
     using BattleField.Interfaces;
 
-    class GameStatus : IGameStatus
+    public class GameStatus : IGameStatus
     {
         private IGameField field;
         private IList<IGameField> gameFieldMemento;

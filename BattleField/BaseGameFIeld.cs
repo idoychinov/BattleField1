@@ -6,10 +6,6 @@
 
     public class BaseGameField : IGameField
     {
-        public IDictionary<IPosition, IGameObject> AllObjects { get; private set; }
-        public IDictionary<IPosition, IInteractableObject> InteractableObjects { get; private set; }
-        public int Size { get; private set; }
-
         public BaseGameField(int fieldSize)
         {
             this.Size = fieldSize;
@@ -22,11 +18,13 @@
             int minPercent = Convert.ToInt32(0.15 * (this.Size * this.Size));
             int maxPercent = Convert.ToInt32(0.30 * (this.Size * this.Size));
             int countMines = randomNumber.Next(minPercent, maxPercent);
+
             while (count <= countMines)
             {
                 int x = randomNumber.Next(0, this.Size);
                 int y = randomNumber.Next(0, this.Size);
                 IPosition position = new Position(x, y);
+
                 if (!this.AllObjects.ContainsKey(position))
                 {
                     IInteractableObject mine = new Mine(position, randomNumber.Next(1, 6));
@@ -37,23 +35,33 @@
             }
         }
 
+        public IDictionary<IPosition, IGameObject> AllObjects { get; private set; }
+
+        public IDictionary<IPosition, IInteractableObject> InteractableObjects { get; private set; }
+
+        public int Size { get; private set; }
+
         public IGameObject GetObjectAtPosition(IPosition position)
         {
             IGameObject result;
+
             if (this.AllObjects.TryGetValue(position, out result))
             {
                 return result;
             }
+
             return null;
         }
 
         public IInteractableObject GetInteractableObjectAtPosition(IPosition position)
         {
             IInteractableObject result;
+
             if (this.InteractableObjects.TryGetValue(position, out result))
             {
                 return result;
             }
+
             return null;
         }
 
@@ -81,6 +89,5 @@
         {
             return this.InteractableObjects.Count;
         }
-
     }
 }

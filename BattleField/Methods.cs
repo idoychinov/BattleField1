@@ -1,8 +1,6 @@
-﻿using BattleField.Interfaces;
-
-namespace BattleField
+﻿namespace BattleField
 {
-    using System;
+    using BattleField.Interfaces;
 
     public static class Methods
     {
@@ -25,10 +23,11 @@ namespace BattleField
             {
                 return true;
             }
+
             return false;
         }
+
         // tuk e magiqta!!!!
         // we got the POWER
-
     }
 }

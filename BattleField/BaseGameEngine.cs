@@ -1,19 +1,18 @@
 ﻿namespace BattleField
 {
     using System;
-    using BattleField.Interfaces;
     using System.Collections.Generic;
-
+    using BattleField.Interfaces;
 
     public sealed class BaseGameEngine : IEngine
     {
-
         private const int MinFieldSize = 1;
         private const int MaxFieldSize = 10;
 
-        private IGameField gameField;
         private readonly IRenderer renderer;
         private readonly IUserInterface userInterface;
+
+        private IGameField gameField;
 
         public BaseGameEngine(IRenderer renderer, IUserInterface userInterface)
         {
@@ -25,9 +24,11 @@
         {
             int fieldSize;
             this.renderer.PrintMessage("Welcome to \"Battle Field game.\" Enter battle field size: n = ");
+
             do
             {
-                fieldSize = userInterface.ReadInteger();
+                fieldSize = this.userInterface.ReadInteger();
+
                 if (fieldSize < MinFieldSize || MaxFieldSize < fieldSize)
                 {
                     Console.WriteLine("Invalid input! Please enter a number between {0} and {1}", MinFieldSize, MaxFieldSize);
@@ -36,15 +37,16 @@
                 {
                     break;
                 }
-            } while (true);
+            } 
+            while (true);
 
-            gameField = new BaseGameField(fieldSize);
+            this.gameField = new BaseGameField(fieldSize);
             this.Run();
         }
 
         private void Run()
         {
-            this.renderer.DrawGameField(gameField);
+            this.renderer.DrawGameField(this.gameField);
             this.MakeMove();
         }
 
@@ -55,24 +57,26 @@
             while (true)
             {
                 detonatedMinesCounter++;
+                IPosition position = this.ReadUserCoordinatesInput();
 
-                IPosition position = ReadUserCoordinatesInput();
-                if (gameField.GetInteractableObjectAtPosition(position) == null)
+                if (this.gameField.GetInteractableObjectAtPosition(position) == null)
                 {
                     this.renderer.PrintMessage("Invalid move !");
                     this.renderer.PrintMessage("Please enter coordinates: ");
                 }
                 else
                 {
-                    DetonateMineAtPosition(position);
+                    this.DetonateMineAtPosition(position);
                 }
 
-                renderer.DrawGameField(gameField);
-                if (EndGame())
+                this.renderer.DrawGameField(this.gameField);
+
+                if (this.EndGame())
                 {
                     break;
                 }
             }
+
             this.renderer.PrintMessage("Congratulations! You win! Detonated mines: " + detonatedMinesCounter);
         }
 
@@ -84,64 +88,69 @@
             {
                 endGame = false;
             }
+
             return endGame;
         }
 
-
         private void DetonateMineAtPosition(IPosition position)
         {
-            //TODO make this work without the "as" operator
-            Mine mine = gameField.GetInteractableObjectAtPosition(position) as Mine;
-            gameField.RemoveObjectFromInteractableObjects(position);
-            gameField.RemoveObjectFromAllObjects(position);
-            gameField.AddObjectToAllObjects(position, new DestroyedField(position));
-            DestroyAllFieldsAroundMine(mine);
+            // TODO make this work without the "as" operator
+            Mine mine = this.gameField.GetInteractableObjectAtPosition(position) as Mine;
+            this.gameField.RemoveObjectFromInteractableObjects(position);
+            this.gameField.RemoveObjectFromAllObjects(position);
+            this.gameField.AddObjectToAllObjects(position, new DestroyedField(position));
+            this.DestroyAllFieldsAroundMine(mine);
         }
 
         private void DestroyAllFieldsAroundMine(Mine mine)
         {
             DetonateOptions detonate = null;
+
             switch (mine.GetStrength())
             {
-
                 case 1:
                     {
                         detonate = new DetonateOptions(new DetonateStrength1Mine());
                         break;
                     }
+
                 case 2:
                     {
                         detonate = new DetonateOptions(new DetonateStrength2Mine());
                         break;
                     }
+
                 case 3:
                     {
                         detonate = new DetonateOptions(new DetonateStrength3Mine());
                         break;
                     }
+
                 case 4:
                     {
                         detonate = new DetonateOptions(new DetonateStrength4Mine());
                         break;
                     }
+
                 case 5:
                     {
                         detonate = new DetonateOptions(new DetonateStrength5Mine());
                         break;
                     }
             }
-            detonate.Detonate(gameField, mine);
+
+            detonate.Detonate(this.gameField, mine);
         }
 
         private void DestroyFields(IPosition[] positions, int startIndex, int numberOfFieldsToBeDestroyed)
         {
             for (int i = startIndex; i < startIndex + numberOfFieldsToBeDestroyed; i++)
             {
-                if (IsPositionInsideField(positions[i]))
+                if (this.IsPositionInsideField(positions[i]))
                 {
-                    gameField.RemoveObjectFromInteractableObjects(positions[i]);
-                    gameField.RemoveObjectFromAllObjects(positions[i]);
-                    gameField.AddObjectToAllObjects(positions[i], new DestroyedField(positions[i]));
+                    this.gameField.RemoveObjectFromInteractableObjects(positions[i]);
+                    this.gameField.RemoveObjectFromAllObjects(positions[i]);
+                    this.gameField.AddObjectToAllObjects(positions[i], new DestroyedField(positions[i]));
                 }
             }
         }
@@ -152,23 +161,25 @@
             {
                 return true;
             }
+
             return false;
         }
 
         private IPosition ReadUserCoordinatesInput()
         {
             Console.WriteLine("Please enter coordinates: ");
-            IEnumerable<int> enteredCoordinates = userInterface.ReadMultipleIntegers(2);
+            IEnumerable<int> enteredCoordinates = this.userInterface.ReadMultipleIntegers(2);
             IEnumerator<int> i = enteredCoordinates.GetEnumerator();
             i.MoveNext();
             int x = i.Current;
             i.MoveNext();
             int y = i.Current;
             IPosition position = new Position(x, y);
-            //if (!IsPositionInsideField(position))
-            //{
+
+            // if (!IsPositionInsideField(position))
+            // {
             //    throw new ArgumentException("The entered position is outside the game field");
-            //}
+            // }
             return position;
         }
     }

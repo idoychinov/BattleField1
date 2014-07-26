@@ -1,8 +1,8 @@
-﻿using BattleField.Interfaces;
-
-namespace BattleField
+﻿namespace BattleField
 {
-    abstract class DetonateMineStrategy
+    using BattleField.Interfaces;
+
+    public abstract class DetonateMineStrategy
     {
         public abstract void DetonateMine(IGameField gameField, Mine mine);
     }

@@ -4,10 +4,7 @@
 
     public abstract class GameObject : IGameObject
     {
-
-        protected char graphicalRepresentation;
-
-        public IPosition Position { get; private set; }
+        private char graphicalRepresentation;
 
         protected GameObject(IPosition position) :
             this(position, ' ')
@@ -20,10 +17,11 @@
             this.graphicalRepresentation = graphicalRepresentation;
         }
 
+        public IPosition Position { get; private set; }
+
         public string GetGraphicalRepresentation()
         {
             return this.graphicalRepresentation.ToString();
         }
-
     }
 }

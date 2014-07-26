@@ -10,12 +10,14 @@
         {
             var input = Console.ReadLine();
             int result = this.ConvertToInteger(input);
+
             return result;
         }
 
         public IEnumerable<int> ReadMultipleIntegers(int count)
         {
             var input = Console.ReadLine();
+
             if (input != null)
             {
                 string[] splittedResult = input.Split(' ');
@@ -35,6 +37,7 @@
 
                 return resultNumbers;
             }
+
             throw new NullReferenceException("Error! Input cannot be null");
         }
 

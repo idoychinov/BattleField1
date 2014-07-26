@@ -7,8 +7,9 @@
     {
         private const int CharNumberOffset = 48;
         private readonly int strength;
-        public Mine(IPosition position,int strength) 
-            : base(position,(char)(CharNumberOffset + strength))
+
+        public Mine(IPosition position, int strength)
+            : base(position, (char)(CharNumberOffset + strength))
         {
             if (strength < 1 && strength > 5)
             {
@@ -18,10 +19,9 @@
             this.strength = strength;
         }
 
-        public int GetStrength() 
+        public int GetStrength()
         {
             return this.strength;
         }
-
     }
 }
