@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -58,6 +61,9 @@
     <Compile Include="KeyboardInterfaceTest.cs" />
     <Compile Include="MethodsTest.cs" />
     <Compile Include="MineTest.cs" />
+    <Compile Include="Mocks\IKeyBoardInterfaceMock.cs" />
+    <Compile Include="Mocks\KeyboardInterfaceMock.cs" />
+    <Compile Include="Mocks\MoqKeyboardInterfaceMock.cs" />
     <Compile Include="PositionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseRendererTest.cs" />
@@ -68,6 +74,9 @@
       <Project>{0a083471-3972-4892-98bc-8a94bf306ee5}</Project>
       <Name>BattleField</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
