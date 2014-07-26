@@ -6,6 +6,9 @@
 
     public class Mine : GameObject, IInteractableObject
     {
+        private const int MinDetonationStrength = 1;
+        private const int MaxDetonationStrength = 5;
+
         private const int CharNumberOffset = 48;
         private readonly int strength;
         private IInteractionStrategy interactionStrategy;
@@ -13,7 +16,7 @@
         internal Mine(IPosition position,int strength, IInteractionStrategy interactionStrategy) 
             : base(position,(char)(CharNumberOffset + strength))
         {
-            if (strength < 1 && strength > 5)
+            if (MinDetonationStrength > strength || strength > MaxDetonationStrength)
             {
                 throw new ArgumentOutOfRangeException("Strength must be between 1 and 5");
             }
