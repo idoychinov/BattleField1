@@ -113,31 +113,7 @@
 
             return endGame;
         }
-
-        private void DetonateMineAtPosition(IPosition position)
-        {
-            // TODO make this work without the "as" operator
-            Mine mine = this.gameField.GetInteractableObjectAtPosition(position) as Mine;
-            this.gameField.RemoveObjectFromInteractableObjects(position);
-            this.gameField.RemoveObjectFromAllObjects(position);
-            this.gameField.AddObjectToAllObjects(position, new DestroyedField(position));
-            //this.DestroyAllFieldsAroundMine(mine);
-        }
-
-
-        private void DestroyFields(IPosition[] positions, int startIndex, int numberOfFieldsToBeDestroyed)
-        {
-            for (int i = startIndex; i < startIndex + numberOfFieldsToBeDestroyed; i++)
-            {
-                if (this.IsPositionInsideField(positions[i]))
-                {
-                    this.gameField.RemoveObjectFromInteractableObjects(positions[i]);
-                    this.gameField.RemoveObjectFromAllObjects(positions[i]);
-                    this.gameField.AddObjectToAllObjects(positions[i], new DestroyedField(positions[i]));
-                }
-            }
-        }
-
+        
         private bool IsPositionInsideField(IPosition position)
         {
             if ((position.X >= 0 && position.X <= this.gameField.Size) && (position.Y >= 0 && position.Y <= this.gameField.Size))

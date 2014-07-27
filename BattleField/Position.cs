@@ -1,9 +1,13 @@
 ﻿namespace BattleField
 {
+    using System;
     using BattleField.Interfaces;
 
     public class Position : IPosition
     {
+        private int x;
+        private int y;
+
         public Position()
         {
         }
@@ -15,9 +19,39 @@
         }
 
         // TODO: x or y <0 validation
-        public int X { get; set; }
+        public int X 
+        {
+            get
+            {
+                return this.x;
+            }
 
-        public int Y { get; set; }
+            set 
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("X value must be positive");
+                }
+                this.x = value;
+            }
+        }
+
+        public int Y 
+        {
+            get
+            {
+                return this.y;
+            }
+
+            set 
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Y value must be positive");
+                }
+                this.y = value;
+            }
+        }
 
         public static bool operator ==(Position first, Position second)
         {
