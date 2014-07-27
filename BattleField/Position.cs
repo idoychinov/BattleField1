@@ -28,10 +28,6 @@
 
             set 
             {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("X value must be positive");
-                }
                 this.x = value;
             }
         }
@@ -45,10 +41,6 @@
 
             set 
             {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("Y value must be positive");
-                }
                 this.y = value;
             }
         }

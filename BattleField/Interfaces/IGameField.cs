@@ -22,5 +22,7 @@ namespace BattleField.Interfaces
         void RemoveObjectFromInteractableObjects(IPosition position);
 
         int GetInteractableObjectsCount();
+
+        int GetObjectsCount();
     }
 }

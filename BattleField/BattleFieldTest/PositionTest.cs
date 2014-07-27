@@ -22,19 +22,5 @@ using System;
             var position2 = new Position(1, 2);
             Assert.AreNotEqual(position1, position2);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ShouldThrowExceptionIfNegativeXIsAssigned()
-        {
-            var position = new Position(-1, 1);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ShouldThrowExceptionIfNegativeYIsAssigned()
-        {
-            var position = new Position(1, -1);
-        }
     }
 }

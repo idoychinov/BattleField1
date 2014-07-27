@@ -93,5 +93,10 @@
         {
             return this.InteractableObjects.Count;
         }
+        
+        public int GetObjectsCount()
+        {
+            return this.AllObjects.Count;
+        }
     }
 }

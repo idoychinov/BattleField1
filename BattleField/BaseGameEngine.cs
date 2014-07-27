@@ -12,8 +12,7 @@
 
         private readonly IRenderer renderer;
         private readonly IUserInterface userInterface;
-
-        private IGameField gameField;
+        private IGameStatus gameStatus;
 
         public BaseGameEngine(IRenderer renderer, IUserInterface userInterface)
         {
@@ -41,25 +40,24 @@
             }
             while (true);
 
-            this.gameField = new BaseGameField(fieldSize, new BaseMinePlacer());
+            this.gameStatus = GameStatus.GetInstance(fieldSize);
             this.Run();
         }
 
         private void Run()
         {
-            this.renderer.DrawGameField(this.gameField);
+            this.renderer.DrawGameField(this.gameStatus.Field);
             this.MakeMove();
         }
 
         private void MakeMove()
         {
-            int detonatedMinesCounter = 0;
 
             while (true)
             {
-                detonatedMinesCounter++;
+                int scoreToAdd = 0;
                 IPosition position = this.ReadUserCoordinatesInput();
-                var gameObjectAtPosition = this.gameField.GetInteractableObjectAtPosition(position);
+                var gameObjectAtPosition = this.gameStatus.Field.GetInteractableObjectAtPosition(position);
 
                 if (gameObjectAtPosition == null)
                 {
@@ -74,49 +72,55 @@
                         if (IsPositionInsideField(itemPosition))
                         {
                             var destroyedField = new DestroyedField(itemPosition);
-                            if (this.gameField.GetObjectAtPosition(itemPosition) == null)
+                            scoreToAdd++;
+                            if (this.gameStatus.Field.GetObjectAtPosition(itemPosition) == null)
                             {
-                                this.gameField.AddObjectToAllObjects(itemPosition, destroyedField);
+                                this.gameStatus.Field.AddObjectToAllObjects(itemPosition, destroyedField);
                             }
                             else
                             {
-                                if (this.gameField.GetInteractableObjectAtPosition(itemPosition) != null)
+                                if (this.gameStatus.Field.GetInteractableObjectAtPosition(itemPosition) != null)
                                 {
-                                    this.gameField.RemoveObjectFromInteractableObjects(itemPosition);
+                                    this.gameStatus.Field.RemoveObjectFromInteractableObjects(itemPosition);
                                 }
-                                this.gameField.RemoveObjectFromAllObjects(itemPosition);
-                                this.gameField.AddObjectToAllObjects(itemPosition, destroyedField);
+                                this.gameStatus.Field.RemoveObjectFromAllObjects(itemPosition);
+                                this.gameStatus.Field.AddObjectToAllObjects(itemPosition, destroyedField);
                             }
                         }
                     }
                 }
 
-                this.renderer.DrawGameField(this.gameField);
+                this.gameStatus.EndTurn(scoreToAdd);
+                this.renderer.DrawGameField(this.gameStatus.Field);
 
                 if (this.EndGame())
                 {
+                    if(this.gameStatus.Field.GetObjectsCount() == (this.gameStatus.Field.Size*this.gameStatus.Field.Size))
+                    {
+                        this.renderer.PrintMessage("Congratulations! You win! Your score is: " + this.gameStatus.Score);
+                    } 
+                    else 
+                    {
+                        this.renderer.PrintMessage("Sorry you lose. You didn't manage to detonate all mines. Your score is: " + this.gameStatus.Score);
+                    }
                     break;
                 }
             }
-
-            this.renderer.PrintMessage("Congratulations! You win! Detonated mines: " + detonatedMinesCounter);
         }
 
         private bool EndGame()
         {
-            bool endGame = true;
-
-            if (this.gameField.GetInteractableObjectsCount() != 0)
+            if (this.gameStatus.Field.GetInteractableObjectsCount() != 0)
             {
-                endGame = false;
+                return false;
             }
 
-            return endGame;
+            return true;
         }
         
         private bool IsPositionInsideField(IPosition position)
         {
-            if ((position.X >= 0 && position.X <= this.gameField.Size) && (position.Y >= 0 && position.Y <= this.gameField.Size))
+            if ((position.X >= 0 && position.X <= this.gameStatus.Field.Size) && (position.Y >= 0 && position.Y <= this.gameStatus.Field.Size))
             {
                 return true;
             }

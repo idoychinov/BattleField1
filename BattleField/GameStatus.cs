@@ -16,7 +16,7 @@
 
         private GameStatus(int fieldSize)
         {
-            this.field = new BaseGameField(fieldSize);
+            this.field = new BaseGameField(fieldSize,new BaseMinePlacer());
             this.gameFieldMemento = new Stack<IGameField>();
             this.gameFieldMemento.Push(this.field);
             this.turn = 0;
