@@ -13,8 +13,8 @@
         private readonly int strength;
         private IInteractionStrategy interactionStrategy;
 
-        internal Mine(IPosition position,int strength, IInteractionStrategy interactionStrategy) 
-            : base(position,(char)(CharNumberOffset + strength))
+        internal Mine(IPosition position, int strength, IInteractionStrategy interactionStrategy)
+            : base(position, (char)(CharNumberOffset + strength))
         {
             if (MinDetonationStrength > strength || strength > MaxDetonationStrength)
             {
@@ -31,12 +31,9 @@
             return area;
         }
 
-        public int GetStrength() 
+        public int GetStrength()
         {
             return this.strength;
         }
-
-
-
     }
 }

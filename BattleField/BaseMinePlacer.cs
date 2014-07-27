@@ -1,11 +1,8 @@
-﻿using BattleField.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BattleField
+﻿namespace BattleField
 {
+    using System;
+    using BattleField.Interfaces;
+
     public class BaseMinePlacer : IMinePositioner
     {
         private const double DefaultMinPercent = 0.15;
@@ -14,10 +11,9 @@ namespace BattleField
         private double minChance;
         private double maxChance;
 
-        public BaseMinePlacer() 
+        public BaseMinePlacer()
             : this(DefaultMinPercent, DefaultMaxPercent)
         {
-
         }
 
         public BaseMinePlacer(double minChance, double maxChance)

@@ -5,21 +5,21 @@
 
     public class MineFactory
     {
-        public Mine CreateMine(IPosition position,int mineStrength)
+        public Mine CreateMine(IPosition position, int mineStrength)
         {
             switch (mineStrength)
             {
                 case 1:
-                    return new Mine(position,mineStrength,new DetonationStrategyWithOneStrenght());
+                    return new Mine(position, mineStrength, new DetonationStrategyWithOneStrenght());
                 case 2:
-                    return new Mine(position,mineStrength,new DetonationStrategyWithTwoStrenght());
+                    return new Mine(position, mineStrength, new DetonationStrategyWithTwoStrenght());
                 case 3:
-                    return new Mine(position,mineStrength,new DetonationStrategyWithThreeStrenght());
+                    return new Mine(position, mineStrength, new DetonationStrategyWithThreeStrenght());
                 case 4:
-                    return new Mine(position,mineStrength,new DetonationStrategyWithFourStrenght());
+                    return new Mine(position, mineStrength, new DetonationStrategyWithFourStrenght());
                 case 5:
-                    return new Mine(position,mineStrength,new DetonationStrategyWithFiveStrenght());
-                    
+                    return new Mine(position, mineStrength, new DetonationStrategyWithFiveStrenght());
+
                 default:
                     throw new ArgumentOutOfRangeException("Incorect mine strength");
             }

@@ -7,6 +7,5 @@
     public abstract class DetonationStrategy : IInteractionStrategy
     {
         public abstract IList<IPosition> GetAffectedArea(IPosition currentPosition);
-
     }
 }

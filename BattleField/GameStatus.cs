@@ -16,7 +16,7 @@
 
         private GameStatus(int fieldSize)
         {
-            this.field = new BaseGameField(fieldSize,new BaseMinePlacer());
+            this.field = new BaseGameField(fieldSize, new BaseMinePlacer());
             this.gameFieldMemento = new Stack<IGameField>();
             this.gameFieldMemento.Push(this.field);
             this.turn = 0;
@@ -25,6 +25,45 @@
             this.currentCursorPosition = new Position(0, 0);
         }
 
+        public int Score
+        {
+            get
+            {
+                return this.score;
+            }
+
+            private set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Score must be positive");
+                }
+
+                this.score = value;
+            }
+        }
+
+        public IGameField Field
+        {
+            get
+            {
+                return this.field;
+            }
+        }
+
+        public IPosition CurrentCursorPosition
+        {
+            get
+            {
+                return this.currentCursorPosition;
+            }
+
+            set
+            {
+                this.currentCursorPosition = value;
+            }
+        }
+        
         public static GameStatus GetInstance(int fieldSize)
         {
             if (instance == null)
@@ -47,34 +86,6 @@
             this.gameFieldMemento.Push(this.field);
         }
 
-        public int Score
-        {
-            get
-            {
-                return this.score;
-            }
-            private set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("Score must be positive");
-                }
-                this.score = value;
-            }
-        }
-
-        public IPosition CurrentCursorPosition
-        {
-            get
-            {
-                return this.currentCursorPosition;
-            }
-            set
-            {
-                this.currentCursorPosition = value;
-            }
-        }
-
         public bool GetMemento()
         {
             if (this.gameFieldMemento.Count > 0)
@@ -84,14 +95,6 @@
             }
 
             return false;
-        }
-
-        public IGameField Field
-        {
-            get
-            {
-                return this.field;
-            }
         }
     }
 }

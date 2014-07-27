@@ -15,28 +15,28 @@
             positioner.PlaceMines(this);
 
             // Ideal for Strategy or Bridge/Addapter - use object to determin the randomization principle ig. Easy Medium Hard game
-            //int count = 0;
-            //Random randomNumber = new Random();
-            //int minPercent = Convert.ToInt32(0.15 * (this.Size * this.Size));
-            //int maxPercent = Convert.ToInt32(0.30 * (this.Size * this.Size));
-            //int countMines = randomNumber.Next(minPercent, maxPercent);
-            //
-            //while (count <= countMines)
-            //{
-            //    int x = randomNumber.Next(0, this.Size);
-            //    int y = randomNumber.Next(0, this.Size);
-            //    IPosition position = new Position(x, y);
-            //
-            //    if (!this.AllObjects.ContainsKey(position))
-            //    {
-            //        MineFactory factory = new MineFactory();
-            //
-            //        IInteractableObject mine = factory.CreateMine(position, randomNumber.Next(1, 6));
-            //        this.AllObjects[position] = mine;
-            //        this.InteractableObjects[position] = mine;
-            //        count++;
-            //    }
-            //}
+            // int count = 0;
+            // Random randomNumber = new Random();
+            // int minPercent = Convert.ToInt32(0.15 * (this.Size * this.Size));
+            // int maxPercent = Convert.ToInt32(0.30 * (this.Size * this.Size));
+            // int countMines = randomNumber.Next(minPercent, maxPercent);
+            // 
+            // while (count <= countMines)
+            // {
+            //     int x = randomNumber.Next(0, this.Size);
+            //     int y = randomNumber.Next(0, this.Size);
+            //     IPosition position = new Position(x, y);
+            // 
+            //     if (!this.AllObjects.ContainsKey(position))
+            //     {
+            //         MineFactory factory = new MineFactory();
+            // 
+            //         IInteractableObject mine = factory.CreateMine(position, randomNumber.Next(1, 6));
+            //         this.AllObjects[position] = mine;
+            //         this.InteractableObjects[position] = mine;
+            //         count++;
+            //     }
+            // }
         }
 
         public IDictionary<IPosition, IGameObject> AllObjects { get; private set; }
@@ -93,7 +93,7 @@
         {
             return this.InteractableObjects.Count;
         }
-        
+
         public int GetObjectsCount()
         {
             return this.AllObjects.Count;

@@ -52,7 +52,6 @@
 
         private void MakeMove()
         {
-
             while (true)
             {
                 int scoreToAdd = 0;
@@ -69,7 +68,7 @@
                     var area = gameObjectAtPosition.InteractionAffectedArea();
                     foreach (var itemPosition in area)
                     {
-                        if (IsPositionInsideField(itemPosition))
+                        if (this.IsPositionInsideField(itemPosition))
                         {
                             var destroyedField = new DestroyedField(itemPosition);
                             scoreToAdd++;
@@ -83,6 +82,7 @@
                                 {
                                     this.gameStatus.Field.RemoveObjectFromInteractableObjects(itemPosition);
                                 }
+
                                 this.gameStatus.Field.RemoveObjectFromAllObjects(itemPosition);
                                 this.gameStatus.Field.AddObjectToAllObjects(itemPosition, destroyedField);
                             }
@@ -95,14 +95,15 @@
 
                 if (this.EndGame())
                 {
-                    if(this.gameStatus.Field.GetObjectsCount() == (this.gameStatus.Field.Size*this.gameStatus.Field.Size))
+                    if (this.gameStatus.Field.GetObjectsCount() == (this.gameStatus.Field.Size * this.gameStatus.Field.Size))
                     {
                         this.renderer.PrintMessage("Congratulations! You win! Your score is: " + this.gameStatus.Score);
-                    } 
-                    else 
+                    }
+                    else
                     {
                         this.renderer.PrintMessage("Sorry you lose. You didn't manage to detonate all mines. Your score is: " + this.gameStatus.Score);
                     }
+
                     break;
                 }
             }
@@ -117,7 +118,7 @@
 
             return true;
         }
-        
+
         private bool IsPositionInsideField(IPosition position)
         {
             if ((position.X >= 0 && position.X <= this.gameStatus.Field.Size) && (position.Y >= 0 && position.Y <= this.gameStatus.Field.Size))
