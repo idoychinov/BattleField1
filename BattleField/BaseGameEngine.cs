@@ -8,6 +8,7 @@
     {
         private const int MinFieldSize = 1;
         private const int MaxFieldSize = 10;
+        private const int NumberOfDimensions = 2;
 
         private readonly IRenderer renderer;
         private readonly IUserInterface userInterface;
@@ -150,7 +151,7 @@
         private IPosition ReadUserCoordinatesInput()
         {
             this.renderer.PrintMessage("Please enter coordinates: ");
-            IEnumerable<int> enteredCoordinates = this.userInterface.ReadMultipleIntegers(2);
+            IEnumerable<int> enteredCoordinates = this.userInterface.ReadMultipleIntegers(NumberOfDimensions);
             IEnumerator<int> i = enteredCoordinates.GetEnumerator();
             i.MoveNext();
             int x = i.Current;
