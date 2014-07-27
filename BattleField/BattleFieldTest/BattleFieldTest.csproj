@@ -62,8 +62,11 @@
     <Compile Include="MethodsTest.cs" />
     <Compile Include="MineTest.cs" />
     <Compile Include="Mocks\IKeyBoardInterfaceMock.cs" />
+    <Compile Include="Mocks\IRendererMock.cs" />
     <Compile Include="Mocks\KeyboardInterfaceMock.cs" />
     <Compile Include="Mocks\MoqKeyboardInterfaceMock.cs" />
+    <Compile Include="Mocks\MoqRendererMock.cs" />
+    <Compile Include="Mocks\RendererMock.cs" />
     <Compile Include="PositionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseRendererTest.cs" />
