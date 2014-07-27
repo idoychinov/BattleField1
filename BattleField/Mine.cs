@@ -9,7 +9,7 @@
         private const int MinDetonationStrength = 1;
         private const int MaxDetonationStrength = 5;
 
-        private const int CharNumberOffset = 48;
+        private const int CharNumberOffset = (int)'0';
         private readonly int strength;
         private IInteractionStrategy interactionStrategy;
 

@@ -1,10 +1,15 @@
-﻿namespace BattleField.Interfaces
+﻿using System.Collections.Generic;
+namespace BattleField.Interfaces
 {
     public interface IGameField
     {
         int Size { get; }
 
         IGameObject GetObjectAtPosition(IPosition position);
+
+        IDictionary<IPosition, IGameObject> AllObjects { get; }
+
+        IDictionary<IPosition, IInteractableObject> InteractableObjects { get; }
 
         IInteractableObject GetInteractableObjectAtPosition(IPosition position);
 

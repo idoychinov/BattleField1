@@ -41,7 +41,7 @@
             }
             while (true);
 
-            this.gameField = new BaseGameField(fieldSize);
+            this.gameField = new BaseGameField(fieldSize, new BaseMinePlacer());
             this.Run();
         }
 

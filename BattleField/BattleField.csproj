@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="BaseGameEngine.cs" />
     <Compile Include="BaseGameField.cs" />
+    <Compile Include="BaseMinePlacer.cs" />
     <Compile Include="BaseRenderer.cs" />
     <Compile Include="BattleFieldGame.cs" />
     <Compile Include="DestroyedField.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Interfaces\IGameStatus.cs" />
     <Compile Include="Interfaces\IInteractableObject.cs" />
     <Compile Include="Interfaces\IInteractionStrategy.cs" />
+    <Compile Include="Interfaces\IMinePositioner.cs" />
     <Compile Include="Interfaces\IPosition.cs" />
     <Compile Include="Interfaces\IRenderer.cs" />
     <Compile Include="Interfaces\IUserInterface.cs" />

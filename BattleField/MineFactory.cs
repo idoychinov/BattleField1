@@ -3,7 +3,7 @@
     using System;
     using BattleField.Interfaces;
 
-    class MineFactory
+    public class MineFactory
     {
         public Mine CreateMine(IPosition position,int mineStrength)
         {
