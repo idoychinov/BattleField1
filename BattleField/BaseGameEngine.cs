@@ -70,7 +70,7 @@
                     var area = gameObjectAtPosition.InteractionAffectedArea();
                     foreach (var itemPosition in area)
                     {
-                        if (itemPosition.X >= 0 && itemPosition.X < this.gameField.Size && itemPosition.Y >= 0 && itemPosition.Y < this.gameField.Size)
+                        if (IsPositionInsideField(itemPosition))
                         {
                             var destroyedField = new DestroyedField(itemPosition);
                             if (this.gameField.GetObjectAtPosition(itemPosition) == null)
