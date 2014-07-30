@@ -1,14 +1,11 @@
-﻿using BattleField.Interfaces;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BattleFieldTest.Mocks
+﻿namespace BattleFieldTest.Mocks
 {
-    class MoqRendererMock : RendererMock, IRendererMock
+    using System;
+    using System.Linq;
+    using BattleField.Interfaces;
+    using Moq;
+
+    public class MoqRendererMock : RendererMock, IRendererMock
     {
         protected override void GenerateRendererMock()
         {

@@ -4,17 +4,16 @@
 
     public interface IGameStatus
     {
+        int Score { get; }
+
+        IPosition CurrentCursorPosition { get; set; }
+
+        IGameField Field { get; }
+
+        bool GetMemento();
+
         TimeSpan GetElapsedTime();
 
         void EndTurn(int scoreToAdd);
-        
-        int Score {get;}
-       
-        IPosition CurrentCursorPosition {get;set;}
-
-        bool GetMemento();
-        
-        IGameField Field {get;}
-        
     }
 }

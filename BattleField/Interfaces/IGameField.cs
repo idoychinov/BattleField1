@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-namespace BattleField.Interfaces
+﻿namespace BattleField.Interfaces
 {
+    using System.Collections.Generic;
+
     public interface IGameField
     {
         int Size { get; }
-
-        IGameObject GetObjectAtPosition(IPosition position);
 
         IDictionary<IPosition, IGameObject> AllObjects { get; }
 
@@ -13,11 +12,13 @@ namespace BattleField.Interfaces
 
         IInteractableObject GetInteractableObjectAtPosition(IPosition position);
 
-        void AddObjectToAllObjects(IPosition position, IGameObject objToBeAdded);
+        IGameObject GetObjectAtPosition(IPosition position);
+
+        void AddObjectToAllObjects(IGameObject objToBeAdded);
 
         void RemoveObjectFromAllObjects(IPosition position);
 
-        void AddObjectToInteractableObjects(IPosition position, IInteractableObject objToBeAdded);
+        void AddObjectToInteractableObjects(IInteractableObject objToBeAdded);
 
         void RemoveObjectFromInteractableObjects(IPosition position);
 

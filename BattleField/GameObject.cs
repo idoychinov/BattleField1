@@ -4,7 +4,7 @@
 
     public abstract class GameObject : IGameObject
     {
-        private char graphicalRepresentation;
+        private readonly char graphicalRepresentation;
 
         protected GameObject(IPosition position) :
             this(position, ' ')

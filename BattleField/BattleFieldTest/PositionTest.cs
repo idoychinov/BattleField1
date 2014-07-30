@@ -1,8 +1,8 @@
 ﻿namespace BattleFieldTest
 {
+    using System;
     using BattleField;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
     [TestClass]
     public class PositionTest
@@ -12,7 +12,7 @@ using System;
         {
             var position1 = new Position(1, 1);
             var position2 = new Position(1, 1);
-            Assert.AreEqual(position1, position1);
+            Assert.AreEqual(position1, position2);
         }
 
         [TestMethod]

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    interface IInteractionStrategy
+    public interface IInteractionStrategy
     {
         IList<IPosition> GetAffectedArea(IPosition currentPosition);
     }

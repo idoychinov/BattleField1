@@ -77,7 +77,6 @@
     <Compile Include="Interfaces\IRenderer.cs" />
     <Compile Include="Interfaces\IUserInterface.cs" />
     <Compile Include="KeyboardInterface.cs" />
-    <Compile Include="Methods.cs" />
     <Compile Include="Mine.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="MineFactory.cs" />

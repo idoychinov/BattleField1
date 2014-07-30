@@ -74,7 +74,7 @@
                             scoreToAdd++;
                             if (this.gameStatus.Field.GetObjectAtPosition(itemPosition) == null)
                             {
-                                this.gameStatus.Field.AddObjectToAllObjects(itemPosition, destroyedField);
+                                this.gameStatus.Field.AddObjectToAllObjects(destroyedField);
                             }
                             else
                             {
@@ -84,7 +84,7 @@
                                 }
 
                                 this.gameStatus.Field.RemoveObjectFromAllObjects(itemPosition);
-                                this.gameStatus.Field.AddObjectToAllObjects(itemPosition, destroyedField);
+                                this.gameStatus.Field.AddObjectToAllObjects(destroyedField);
                             }
                         }
                     }
@@ -140,10 +140,6 @@
             int y = i.Current;
             IPosition position = new Position(x, y);
 
-            // if (!IsPositionInsideField(position))
-            // {
-            //    throw new ArgumentException("The entered position is outside the game field");
-            // }
             return position;
         }
     }

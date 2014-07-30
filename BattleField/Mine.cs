@@ -9,9 +9,9 @@
         private const int MinDetonationStrength = 1;
         private const int MaxDetonationStrength = 5;
 
-        private const int CharNumberOffset = (int)'0';
+        private const int CharNumberOffset = '0';
         private readonly int strength;
-        private IInteractionStrategy interactionStrategy;
+        private readonly IInteractionStrategy interactionStrategy;
 
         internal Mine(IPosition position, int strength, IInteractionStrategy interactionStrategy)
             : base(position, (char)(CharNumberOffset + strength))

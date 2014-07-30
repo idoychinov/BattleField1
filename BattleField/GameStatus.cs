@@ -7,11 +7,11 @@
     public class GameStatus : IGameStatus
     {
         private static GameStatus instance;
+        private readonly Stack<IGameField> gameFieldMemento;
+        private readonly DateTime startTime;
         private IGameField field;
-        private Stack<IGameField> gameFieldMemento;
         private int turn;
         private int score;
-        private DateTime startTime;
         private IPosition currentCursorPosition;
 
         private GameStatus(int fieldSize)
@@ -63,7 +63,7 @@
                 this.currentCursorPosition = value;
             }
         }
-        
+
         public static GameStatus GetInstance(int fieldSize)
         {
             if (instance == null)

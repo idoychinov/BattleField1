@@ -1,13 +1,13 @@
 ﻿namespace BattleFieldTest
 {
+    using System;
     using BattleField;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System;
 
     [TestClass]
     public class MineTest
     {
-        MineFactory factory;
+        private MineFactory factory;
 
         [TestInitialize]
         public void CreateFactory()
@@ -28,7 +28,5 @@
         {
             this.factory.CreateMine(new Position(1, 1), 6);
         }
-
-
     }
 }

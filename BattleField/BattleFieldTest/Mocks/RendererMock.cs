@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BattleFieldTest.Mocks
+﻿namespace BattleFieldTest.Mocks
 {
+    using System;
+    using System.Linq;
     using BattleField.Interfaces;
+
     public abstract class RendererMock : IRendererMock
     {
         public RendererMock()

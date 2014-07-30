@@ -13,30 +13,6 @@
             this.InteractableObjects = new Dictionary<IPosition, IInteractableObject>();
 
             positioner.PlaceMines(this);
-
-            // Ideal for Strategy or Bridge/Addapter - use object to determin the randomization principle ig. Easy Medium Hard game
-            // int count = 0;
-            // Random randomNumber = new Random();
-            // int minPercent = Convert.ToInt32(0.15 * (this.Size * this.Size));
-            // int maxPercent = Convert.ToInt32(0.30 * (this.Size * this.Size));
-            // int countMines = randomNumber.Next(minPercent, maxPercent);
-            // 
-            // while (count <= countMines)
-            // {
-            //     int x = randomNumber.Next(0, this.Size);
-            //     int y = randomNumber.Next(0, this.Size);
-            //     IPosition position = new Position(x, y);
-            // 
-            //     if (!this.AllObjects.ContainsKey(position))
-            //     {
-            //         MineFactory factory = new MineFactory();
-            // 
-            //         IInteractableObject mine = factory.CreateMine(position, randomNumber.Next(1, 6));
-            //         this.AllObjects[position] = mine;
-            //         this.InteractableObjects[position] = mine;
-            //         count++;
-            //     }
-            // }
         }
 
         public IDictionary<IPosition, IGameObject> AllObjects { get; private set; }
@@ -69,9 +45,9 @@
             return null;
         }
 
-        public void AddObjectToAllObjects(IPosition position, IGameObject objToBeAdded)
+        public void AddObjectToAllObjects(IGameObject objToBeAdded)
         {
-            this.AllObjects.Add(position, objToBeAdded);
+            this.AllObjects.Add(objToBeAdded.Position, objToBeAdded);
         }
 
         public void RemoveObjectFromAllObjects(IPosition position)
@@ -79,9 +55,9 @@
             this.AllObjects.Remove(position);
         }
 
-        public void AddObjectToInteractableObjects(IPosition position, IInteractableObject objToBeAdded)
+        public void AddObjectToInteractableObjects(IInteractableObject objToBeAdded)
         {
-            this.InteractableObjects.Add(position, objToBeAdded);
+            this.InteractableObjects.Add(objToBeAdded.Position, objToBeAdded);
         }
 
         public void RemoveObjectFromInteractableObjects(IPosition position)

@@ -46,30 +46,9 @@
             }
         }
 
-        public void DrawGameStats()
-        {
-        }
-
-        public void DrawGameObjects()
-        {
-        }
-
         public void PrintMessage(string message)
         {
             Console.Write(message);
-        }
-
-        private void PrintArray(int rows, int cols, string[,] workField)
-        {
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < cols; j++)
-                {
-                    Console.Write(workField[i, j]);
-                }
-
-                Console.WriteLine();
-            }
         }
     }
 }
